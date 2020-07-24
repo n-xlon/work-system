@@ -1,8 +1,8 @@
 <template>
   <div class="department">
     <ul class="list">
-      <li class="item" v-for="(item, index) in departmentList" :key="index" @click="choiceDepartment(index)">
-        <span>{{ item }}</span>
+      <li class="item" v-for="(item, index) in departmentList" :key="item.Title" @click="choiceDepartment(index)">
+        <span>{{ item.OfficialNameOfOrganizationNative }}</span>
         <i class="selected el-icon-check" v-if="index === activeIndex"></i>
       </li>
     </ul>
@@ -10,12 +10,37 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
   data () {
     return {
-      departmentList: ['设计部', '研发部', '人事行政部', '销售部', '客服部'],
+      departmentList: [
+        {
+          Title: 1,
+          IDOfRelatedObject: 3,
+          OfficialNameOfOrganization: 'zt',
+          OfficialNameOfOrganizationNative: '设计部',
+          OrganizationalRank: 1,
+          UserBeSubstitutedFor: 'xx'
+        },
+        {
+          Title: 2,
+          IDOfRelatedObject: 3,
+          OfficialNameOfOrganization: 'zt',
+          OfficialNameOfOrganizationNative: '研发部',
+          OrganizationalRank: 1,
+          UserBeSubstitutedFor: 'xx'
+        },
+        {
+          Title: 3,
+          IDOfRelatedObject: 3,
+          OfficialNameOfOrganization: 'zt',
+          OfficialNameOfOrganizationNative: '人事行政部',
+          OrganizationalRank: 1,
+          UserBeSubstitutedFor: 'xx'
+        }
+      ],
       activeIndex: -1
     }
   },
@@ -25,13 +50,22 @@ export default {
     ])
   },
   created () {
-    const _index = this.departmentList.findIndex(it => it === this.communicationData.department)
-    this.activeIndex = _index >= 0 ? _index : -1
+    this.getDepartment()
   },
   methods: {
     ...mapMutations([
       'updateCommunicationData'
     ]),
+    ...mapActions('Department', [
+      'getAllDepartment'
+    ]),
+    getDepartment () {
+      this.getAllDepartment().then(res => {
+        this.departmentList = res.list
+        const _index = this.departmentList.findIndex(it => it === this.communicationData.department)
+        this.activeIndex = _index >= 0 ? _index : -1
+      })
+    },
     choiceDepartment (index) {
       this.activeIndex = index
       this.updateCommunicationData({ department: this.departmentList[this.activeIndex] })

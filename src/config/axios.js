@@ -7,8 +7,8 @@ const service = axios.create({
 
 service.interceptors.request.use(config => {
   const SessionKey = store.state.SessionKey
-  if (!config.headers['SessionKey']) {
-    config.headers['SessionKey'] = SessionKey
+  if (!config.headers.SessionKey) {
+    config.headers.SessionKey = SessionKey
   }
   return config
 }, error => {

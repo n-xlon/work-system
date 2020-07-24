@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   props: {
     task: {
@@ -99,7 +100,17 @@ export default {
     }
   },
   methods: {
+    ...mapActions('TodoList', [
+      'approvalTask'
+    ]),
     handleApproval () {
+      this.approvalTask({
+        taskId: task.TaskId,
+        result: !this.result,
+        comment: this.comment
+      }).then(data => {
+        console.log(data, '提交成功')
+      })
     }
   }
 }

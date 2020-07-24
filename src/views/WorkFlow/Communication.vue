@@ -64,16 +64,16 @@
         <i class="arrow el-icon-arrow-right"></i>
       </div>
     </div>
-    <el-button class="submit-btn" type="primary">提交</el-button>
+    <el-button class="submit-btn" @click="submit" type="primary">提交</el-button>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   computed: {
     ...mapState({
-      communicationData: state => state.communicationData
+      communicationData: state => state.Communication.communicationData
     })
   },
   data () {
@@ -81,8 +81,21 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('Communication', [
+      'updateCommunicationData'
+    ]),
+    ...mapActions('Communication', [
+      'resetCommunication',
+      'submitCommunicationData'
+    ]),
     next (name) {
       this.$router.push({ name })
+    },
+    submit () {
+      const data = {}
+      this.submitCommunicationData().then(res => {
+        this.resetCommunication()
+      })
     }
   },
   mounted () {

@@ -13,8 +13,14 @@ module.exports = {
     host: '0.0.0.0', // 本地和局域网
     // host: 'localhost', // 只有本地
     https: false, // https:{type:Boolean}
-    open: true, //配置自动启动浏览器
+    open: true, // 配置自动启动浏览器
     // proxy: 'http://localhost:4000' // 配置跨域处理,只有一个代理
+    proxy: {
+      '/api': {
+        target: 'https://appsrv.yokogawachina.com:8484',
+        pathRewrite: { '^/api': '' }
+      }
+    }
   },
   chainWebpack: config => {
     config.resolve.alias

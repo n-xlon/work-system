@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -41,7 +42,13 @@ export default {
       }]
     }
   },
+  created () {
+    this.getApply()
+  },
   methods: {
+    ...mapActions('Apply', [
+      'getApplyList'
+    ]),
     getApplyStatusStyle (status) {
       if (status === '同意') {
         return 'agree'
@@ -50,6 +57,12 @@ export default {
       } else {
         return 'is-appling'
       }
+    },
+    getApply () {
+      this.getApplyList().then(res => {
+        console.log(res)
+        this.applyList = res.list
+      })
     }
   }
 }

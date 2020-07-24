@@ -27,3 +27,16 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+```
+"gitHooks": {
+  "pre-commit": "lint-staged"
+},
+"lint-staged": {
+  "*.{js,jsx,vue}": [
+    "vue-cli-service lint",
+    "git add"
+  ]
+}
+```

@@ -16,7 +16,7 @@
 
 <script>
 import CommunicationDetails from './CommunicationDetails'
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
   components: {
@@ -51,13 +51,25 @@ export default {
       currentTask: {}
     }
   },
+  created () {
+    this.getTaskList()
+  },
   methods: {
     ...mapMutations('TodoList', [
       'updateType'
     ]),
+    ...mapActions('TodoList', [
+      'getTodoList'
+    ]),
     handleTask (task) {
       this.currentTask = task
       this.updateType(true)
+    },
+    getTaskList () {
+      this.getTodoList().then(res => {
+        console.log(res, 111)
+        this.list = data.list
+      })
     }
   }
 }
