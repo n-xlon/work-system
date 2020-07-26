@@ -7,7 +7,7 @@
       </div>
       <div class="item">
         <span>YCN招待人员姓名</span>
-        <el-input class="input-layout" size="mini" v-model="communicationData.YCNPersonName"></el-input>
+        <el-input class="input-layout input-rlt" size="mini" v-model="communicationData.YCNPersonName"></el-input>
       </div>
       <div class="item" @click="next('FreeContent')">
         <span>交际费内容</span>
@@ -18,11 +18,11 @@
     <div class="list">
       <div class="item">
         <span>公司名称</span>
-        <el-input class="input-layout" size="mini" v-model="communicationData.participantsInfo.bussiness"></el-input>
+        <el-input class="input-layout input-rlt" size="mini" v-model="communicationData.participantsInfo.bussiness"></el-input>
       </div>
       <div class="item">
         <span>参加人员数</span>
-        <el-input class="input-layout" size="mini" v-model="communicationData.participantsInfo.num"></el-input>
+        <el-input class="input-layout input-rlt" size="mini" v-model="communicationData.participantsInfo.num"></el-input>
       </div>
       <div class="item" @click="next('Participants')">
         <span>参与人员</span>
@@ -38,26 +38,26 @@
       </div>
       <div class="item">
         <span>实际场所</span>
-        <el-input class="input-layout" size="mini" v-model="communicationData.participantsInfo.correntArea"></el-input>
+        <el-input class="input-layout input-rlt" size="mini" v-model="communicationData.participantsInfo.correntArea"></el-input>
       </div>
       <div class="item">
         <span>实行目的与理由</span>
-        <el-input class="input-layout" size="mini" v-model="communicationData.participantsInfo.reason"></el-input>
+        <el-input class="input-layout input-rlt" size="mini" v-model="communicationData.participantsInfo.reason"></el-input>
       </div>
     </div>
     <p class="sub-title"><img src="../../assets/money@2x.png" alt=""><span class="name">预算金额</span></p>
     <div class="list">
       <div class="item">
         <span>总结金额 (元)</span>
-        <el-input class="input-layout" size="mini" v-model="communicationData.budgetAmount.totalMoney"></el-input>
+        <el-input class="input-layout input-rlt" size="mini" v-model="communicationData.budgetAmount.totalMoney"></el-input>
       </div>
       <div class="item">
         <span>总人数</span>
-        <el-input class="input-layout" size="mini" v-model="communicationData.budgetAmount.totalNum"></el-input>
+        <el-input class="input-layout input-rlt" size="mini" v-model="communicationData.budgetAmount.totalNum"></el-input>
       </div>
       <div class="item">
         <span>人均 (元)</span>
-        <el-input class="input-layout" size="mini" v-model="communicationData.budgetAmount.totalNum"></el-input>
+        <el-input class="input-layout input-rlt" size="mini" v-model="communicationData.budgetAmount.average"></el-input>
       </div>
       <div class="item" @click="next('CostList')">
         <span>明细</span>
@@ -92,7 +92,6 @@ export default {
       this.$router.push({ name })
     },
     submit () {
-      const data = {}
       this.submitCommunicationData().then(res => {
         this.resetCommunication()
       })

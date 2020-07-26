@@ -39,9 +39,39 @@ export default {
     }
   },
   actions: {
-    submitCommunicationData (_, payload) {
+    submitCommunicationData ({ state }, payload) {
       return new Promise((resolve, reject) => {
-        axios.get(apis.SUBMIT_COMMUNICATION_DATA, payload).then(res => {
+        const { department, YCNPersonName, content, otherText, participantsInfo, budgetAmount } = state
+        let data = {
+          ApplicantName: YCNPersonName,
+          PersonnelNumberOfApplicant: '',
+          Department: department,
+          PersonnelNumberOfUsher: '',
+          UsherName: '',
+          Role: '',
+          OtherUsher: '',
+          GroupAttendant: '',
+          Category: '',
+          OtherCategroyDescription: '',
+          Company: '',
+          NumberOfClient: participantsInfo.num,
+          ClientName: '',
+          ClientDepartment: '',
+          ClientPosition: '',
+          MoreClients: JSON.stringify(participantsInfo.person),
+          StartDate: participantsInfo.startTime,
+          EndDate: participantsInfo.endTime,
+          Purpose: participantsInfo.reason,
+          Place: participantsInfo.correntArea,
+          OverseasPlace: '',
+          Amount: budgetAmount.totalMoney,
+          NumberOfPeople: budgetAmount.totalNum,
+          PerCapital: budgetAmount.average,
+          DetailOfBudget: JSON.stringify(budgetAmount.details),
+          Remark: '',
+          RequestType: ''
+        }
+        axios.get(apis.SUBMIT_COMMUNICATION_DATA, data).then(res => {
           const { data } = res
           resolve(data)
         }).catch(e => {

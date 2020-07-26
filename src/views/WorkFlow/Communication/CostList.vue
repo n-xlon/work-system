@@ -3,7 +3,7 @@
     <ul class="col_list" v-for="(item, index) in costList" :key="index">
       <li class="col_item" v-for="it in labels" :key="it.label">
         <span>{{ it.text }}</span>
-        <el-input class="input-layout" size="mini" v-model="item[it.label]" clearable></el-input>
+        <el-input class="input-layout input-rlt" size="mini" v-model="item[it.label]" clearable></el-input>
       </li>
     </ul>
     <p class="cost_list-add"><i class="el-icon-circle-plus-outline" @click="addCostList"></i></p>
@@ -12,26 +12,40 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'CostList',
+  computed: {
+    ...mapState('Communication', [
+      'communicationData'
+    ])
+  },
   data () {
     return {
       labels: [
-        { text: '项目', label: 'project' },
-        { text: '金额 (元)', label: 'cost' },
-        { text: '人数', label: 'peopleNum' },
-        { text: '人均 (元)', label: 'avg' }
+        { text: '项目', label: 'category' },
+        { text: '金额 (元)', label: 'amount' },
+        { text: '人数', label: 'peopleNumber' },
+        { text: '人均 (元)', label: 'perCapitalAmount' }
       ],
       costList: [
-        { project: '', cost: 0, peopleNum: 0, avg: 0 }
+        { category: '', amount: 0, peopleNumber: 0, perCapitalAmount: 0 }
       ]
     }
   },
+  created () {
+    this.communicationData.budgetAmount.details.length && (this.costList = this.communicationData.budgetAmount.details)
+  },
   methods: {
+    ...mapMutations('Communication', [
+      'updateCommunicationData'
+    ]),
     addCostList () {
-      this.costList.push({ project: '', cost: 0, peopleNum: 0, avg: 0 })
+      this.costList.push({ category: '', amount: 0, peopleNumber: 0, perCapitalAmount: 0 })
     },
     submitCost () {
+      this.updateCommunicationData({ budgetAmount: { ...this.communicationData.budgetAmount, details: this.costList } })
+      this.$router.back()
     }
   }
 }

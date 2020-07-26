@@ -3,7 +3,7 @@
     <ul class="col_list" v-for="(item, index) in personInfos" :key="index">
       <li class="col_item" v-for="it in labels" :key="it.label">
         <span>{{ it.text }}</span>
-        <el-input class="input-layout" size="mini" v-model="item[it.label]"></el-input>
+        <el-input class="input-layout input-rlt" size="mini" v-model="item[it.label]"></el-input>
       </li>
     </ul>
     <p class="add_participants"><i class="el-icon-circle-plus-outline" @click="addParticipants"></i></p>
@@ -17,7 +17,7 @@ import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'Participants',
   computed: {
-    ...mapState([
+    ...mapState('Communication', [
       'communicationData'
     ])
   },
@@ -25,11 +25,11 @@ export default {
     return {
       labels: [
         { text: '姓名', label: 'name' },
-        { text: '公司 (部门)', label: 'bussiness' },
+        { text: '公司 (部门)', label: 'company' },
         { text: '职位', label: 'position' }
       ],
       personInfos: [
-        { name: '', bussiness: '', position: '' }
+        { name: '', company: '', position: '' }
       ]
     }
   },
@@ -37,11 +37,11 @@ export default {
     this.communicationData.participantsInfo.person.length && (this.personInfos = this.communicationData.participantsInfo.person)
   },
   methods: {
-    ...mapMutations([
+    ...mapMutations('Communication', [
       'updateCommunicationData'
     ]),
     addParticipants () {
-      this.personInfos.push({ name: '', bussiness: '', position: '' })
+      this.personInfos.push({ name: '', company: '', position: '' })
     },
     submit () {
       this.updateCommunicationData({ participantsInfo: { ...this.communicationData.participantsInfo, person: this.personInfos } })

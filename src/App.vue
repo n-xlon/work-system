@@ -61,6 +61,14 @@ ul,li {
     top: inherit;
     height: 100%;
   }
+
+  .input-rlt {
+    .el-input__inner {
+      text-align: right;
+      outline: none;
+      border: none;
+    }
+  }
 }
 
 #nav {
@@ -100,6 +108,17 @@ ul,li {
     right: .4rem;
     top: .4rem;
     font-size: .5rem;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  html {
+    font-size: 50px !important; // 这里加权重是因为 amfe-flexible 通过行内样式设置了根字体
+  }
+
+  body {
+    /*max-width: 500px; // 顺带提下，这里也可以小写 px，大写 PX 可以让 postcss-pxtorem 忽略转成 rem*/
+    margin: 0 auto;
   }
 }
 </style>
