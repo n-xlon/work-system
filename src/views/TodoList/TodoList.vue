@@ -66,9 +66,13 @@ export default {
       this.updateType(true)
     },
     getTaskList () {
+      const loadingTodoList = this.$loading({background: 'transparent'})
       this.getTodoList().then(res => {
         console.log(res, 111)
+        loadingTodoList.close()
         this.list = data.list
+      }).catch(() => {
+        loadingTodoList.close()
       })
     }
   }

@@ -1,3 +1,4 @@
+export const LOGIN = '/api/user/login2'
 export const GET_TODO_LIST = '/api/workflow/gettasks'
 export const APPROVAL_TASK = '/api/workflow/finish'
 

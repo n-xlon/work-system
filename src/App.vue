@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header v-if="$route.name && $route.name !== 'Login'">
+    <Header v-if="$route.name && $route.name !== 'Login'" :hasBack="$route.name !== 'Home'">
       <span slot="title">{{ getTitle }}</span>
     </Header>
 <!--    <div id="nav">-->
@@ -54,7 +54,7 @@ ul,li {
   .contain {
     width: 100%;
     position: absolute;
-    top: 1.5rem;
+    top: 1.2rem;
   }
 
   .contain.is-login {

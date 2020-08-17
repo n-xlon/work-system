@@ -2,7 +2,7 @@
   <div class="login">
     <img class="image_1" src="../assets/tu1_01.jpg" alt="">
     <div class="login-contain">
-      <el-form :model="form" :rules="rules">
+      <el-form :model="form" :rules="rules" ref="loginForm">
         <el-form-item prop="username">
           <el-input v-model="form.username" clearable placeholder="请输入用户名"></el-input>
         </el-form-item>
@@ -10,13 +10,14 @@
           <el-input type="password" clearable v-model="form.password" placeholder="请输入密码"></el-input>
         </el-form-item>
       </el-form>
-      <el-button class="submit-login" type="primary" @click="login">登录</el-button>
+      <el-button :loading="loadingLogin" class="submit-login" type="primary" @click="login">登录</el-button>
       <img class="image_2" src="../assets/tu_03.jpg" alt="">
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -27,12 +28,30 @@ export default {
       rules: {
         username: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
         password: [{ required: true, message: '密码不能为空', trigger: 'blur' }]
-      }
+      },
+      loadingLogin: false
     }
   },
   methods: {
-    login () {
-      this.$router.push('/home')
+    ...mapActions('User', [
+      'loginIn'
+    ]),
+    async login () {
+      try {
+        await this.$refs.loginForm.validate()
+        this.loadingLogin = true
+        this.loginIn({
+          LoginName: this.form.username,
+          Password: this.form.password
+        }).then(res => {
+          this.loadingLogin = false
+          this.$router.push('/home')
+        }).catch(e => {
+          this.loadingLogin = false
+        })
+      } catch (e) {
+        this.loadingLogin = false
+      }
     }
   }
 }

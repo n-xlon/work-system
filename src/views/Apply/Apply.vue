@@ -19,27 +19,7 @@ import { mapActions } from 'vuex'
 export default {
   data () {
     return {
-      applyList: [{
-        WFInstanceId: '',
-        WFInstanceName: '',
-        WFDefinitionName: '交际费申请',
-        ApplicantId: '',
-        ApplicantName: '',
-        Created: '2020-07-01',
-        Status: '同意',
-        ListURL: '',
-        isChecked: false
-      }, {
-        WFInstanceId: '',
-        WFInstanceName: '',
-        WFDefinitionName: '交际费申请',
-        ApplicantId: '',
-        ApplicantName: '',
-        Created: '2020-07-01',
-        Status: '不同意',
-        ListURL: '',
-        isChecked: false
-      }]
+      applyList: []
     }
   },
   created () {
@@ -59,9 +39,13 @@ export default {
       }
     },
     getApply () {
+      const loading = this.$loading({background: 'transparent'})
       this.getApplyList().then(res => {
-        console.log(res)
-        this.applyList = res.list
+        loading.close()
+        this.applyList = res.map(it => ({...it, isChecked: false}))
+        console.log(this.applyList)
+      }).catch(() => {
+        loading.close()
       })
     }
   }
@@ -112,6 +96,7 @@ export default {
       padding: 0.1rem .3rem;
       box-sizing: border-box;
       font-size: .4rem;
+      background-color: #F0EDF1;
       .list {
         margin-top: .2rem;
         text-align: left;

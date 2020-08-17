@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../../config/axios'
 import * as apis from '../../config/apis'
 
 export default {
@@ -12,9 +12,9 @@ export default {
     }
   },
   actions: {
-    getTodoList (_, payload) {
+    getTodoList (_, payload = {}) {
       return new Promise((resolve, reject) => {
-        axios.get(apis.GET_TODO_LIST, payload).then(res => {
+        axios.post(apis.GET_TODO_LIST, JSON.stringify(payload)).then(res => {
           const { data } = res
           resolve(data)
         }).catch(e => {
