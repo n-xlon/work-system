@@ -101,7 +101,8 @@ export default {
   },
   methods: {
     ...mapActions('TodoList', [
-      'approvalTask'
+      'approvalTask',
+      'getCommunicateDetails'
     ]),
     handleApproval () {
       this.approvalTask({
@@ -111,7 +112,18 @@ export default {
       }).then(data => {
         console.log(data, '提交成功')
       })
+    },
+    initDetails () {
+      const { task } = this
+      const data = {
+        WorkflowNum: task.WorkflowNumber,
+        WFInstanceId: task.WorkflowInstanceId
+      }
+      this.getCommunicateDetails(data)
     }
+  },
+  mounted () {
+    this.initDetails()
   }
 }
 </script>

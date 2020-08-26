@@ -7,8 +7,8 @@
             <img class="image" :src="item.img" :alt="item.img" v-if="item.img">
             <span class="name">{{ item.text }}</span>
           </span>
-          <span class="badge" v-if="item.id === 1">
-            {{7}}
+          <span class="badge" v-if="item.id === 1 && taskLen">
+            {{taskLen}}
           </span>
           <i class="right-arrow el-icon-arrow-right"></i>
         </li>
@@ -20,6 +20,7 @@
 <script>
 // @ is an alias to /src
 // import Header from '@/components/Header.vue'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Home',
@@ -35,13 +36,27 @@ export default {
         { id: 2, text: '我的申请', path: '/myApply', img: require('../assets/apply@2x.png') },
         { id: 3, text: '我参与的', img: require('../assets/joinActivity@2x.png') },
         { id: 4, text: '委托代理', img: require('../assets/dispose@2x.png') }
-      ]
+      ],
+      taskLen: 0
     }
   },
   methods: {
+    ...mapActions('TodoList', [
+      'getTodoList'
+    ]),
     handleWorkFlow (item) {
       this.$router.push(item.path)
+    },
+    async getTask () {
+      try {
+        const list = await this.getTodoList()
+        this.taskLen = list.length
+      } catch (e) {
+      }
     }
+  },
+  created () {
+    this.getTask()
   }
 }
 </script>

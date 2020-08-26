@@ -2,14 +2,14 @@
   <div class="todo-list">
     <template v-if="!showTodoListDetails">
       <div class="tasks" v-for="(item, index) in list" :key="item.TaskId + index" @click="handleTask(item)">
-        <span class="title">{{item.TaskName}}</span>
+        <span class="title">{{item.WorkflowName}}</span>
         <span class="sub-title">{{item.ApplicantName}}</span>
         <span class="task-date">{{item.ApplyDate}}</span>
         <i class="arrow el-icon-arrow-right"></i>
       </div>
     </template>
     <div class="task-details" v-if="showTodoListDetails">
-      <communication-details :task="currentTask" v-if="currentTask.TaskId === 1"/>
+      <communication-details :task="currentTask"/>
     </div>
   </div>
 </template>
@@ -29,25 +29,7 @@ export default {
   },
   data () {
     return {
-      list: [{
-        TaskId: 1,
-        TaskName: '交际费申请',
-        WorkflowNumber: '',
-        WorkflowInstanceId: '',
-        WorkflowName: '',
-        ListURL: '',
-        ApplicantName: '行政人事部',
-        ApplyDate: '2020-07-01'
-      }, {
-        TaskId: 1,
-        TaskName: '交际费申请',
-        WorkflowNumber: '',
-        WorkflowInstanceId: '',
-        WorkflowName: '',
-        ListURL: '',
-        ApplicantName: '行政人事部',
-        ApplyDate: '2020-07-01'
-      }],
+      list: [],
       currentTask: {}
     }
   },
@@ -70,7 +52,7 @@ export default {
       this.getTodoList().then(res => {
         console.log(res, 111)
         loadingTodoList.close()
-        this.list = data.list
+        this.list = res
       }).catch(() => {
         loadingTodoList.close()
       })

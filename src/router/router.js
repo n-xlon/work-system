@@ -10,7 +10,6 @@ router.beforeEach((to, from, next) => {
       store.commit('User/updateUserInfo', { SessionKey, EmployeeInfo })
       next()
     } else {
-      console.log(333)
       next('/login')
     }
   } else {

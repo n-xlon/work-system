@@ -14,20 +14,34 @@ service.interceptors.request.use(config => {
   }
   return config
 }, error => {
+  console.log(error, 222)
   return Promise.reject(error)
 })
 
 service.interceptors.response.use(response => {
+  console.log(response, 999)
   const { status, data } = response
-  if (status !== 200) {
-    window.$_toast({ props: {message: response.data}})
+  if (status !== 200 || (status === 200 && Object.prototype.toString.call(data) === '[object String]')) {
+    window.$_toast({ props: {message: response.data, duation: 3000}})
     return Promise.reject(response)
   }
   return Promise.resolve(response.data)
-}, err => {
-  console.log(err, 111)
-  window.$_toast({ props: {message: err}})
-  return Promise.reject(err)
+}, error => {
+  const { status, data } = error.response
+  if (status === 403) {
+    if ('ErrorCode' in data && [1001, 1002, 1003].includes(data.ErrorCode)) {
+      localStorage.removeItem('userInfo')
+      window.$_toast({ props: {message: data.ErrorMessage, duation: 3000}})
+      window.vm.$router.push('/login')
+    }
+  } else {
+    if ('ErrorCode' in data && 'ErrorMessage' in data) {
+      window.$_toast({ props: {message: data.ErrorMessage, duation: 3000}})
+    } else {
+      window.$_toast({ props: {message: data.Message || error, duation: 3000}})
+    }
+  }
+  return Promise.reject(error.response)
 })
 
 export default service

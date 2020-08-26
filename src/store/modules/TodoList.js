@@ -14,8 +14,7 @@ export default {
   actions: {
     getTodoList (_, payload = {}) {
       return new Promise((resolve, reject) => {
-        axios.post(apis.GET_TODO_LIST, JSON.stringify(payload)).then(res => {
-          const { data } = res
+        axios.post(apis.GET_TODO_LIST, JSON.stringify(payload)).then(data => {
           resolve(data)
         }).catch(e => {
           reject(e)
@@ -30,6 +29,11 @@ export default {
         }).catch(e => {
           reject(e)
         })
+      })
+    },
+    getCommunicateDetails ({state}, payload) {
+      axios.post(apis.GET_DETAILS, payload).then(res => {
+        console.log(res)
       })
     }
   }

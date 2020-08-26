@@ -10,9 +10,8 @@ export default {
   actions: {
     getAllDepartment (_, payload) {
       return new Promise((resolve, reject) => {
-        axios.get(apis.GET_ALL_DEPARTMENT, payload).then(res => {
-          const { data } = res
-          resolve(data)
+        axios.post(apis.GET_ALL_DEPARTMENT, payload).then(res => {
+          resolve(res)
         }).catch(e => {
           reject(e)
         })

@@ -22,7 +22,7 @@ export default {
   data () {
     return {
       form: {
-        username: '',
+        username: '43906018',
         password: ''
       },
       rules: {

@@ -5,11 +5,11 @@ const initState = {
   communicationData: {
     department: '',
     YCNPersonName: '',
-    content: '',
+    content: [],
     otherText: '',
     participantsInfo: {
       bussiness: '',
-      num: 0,
+      num: '',
       person: [],
       startTime: '',
       endTime: '',
@@ -17,8 +17,8 @@ const initState = {
       reason: ''
     },
     budgetAmount: {
-      totalMoney: 0,
-      totalNum: 0,
+      totalMoney: '',
+      totalNum: '',
       average: '',
       details: []
     }
@@ -35,43 +35,45 @@ export default {
       state.communicationData = { ...state.communicationData, ...data }
     },
     resetCommunication (state) {
-      state.communicationData = { ...initState.communicationData }
+      state.communicationData = { ...initState }
     }
   },
   actions: {
-    submitCommunicationData ({ state }, payload) {
+    submitCommunicationData ({ state, rootState }, payload) {
       return new Promise((resolve, reject) => {
-        const { department, YCNPersonName, content, otherText, participantsInfo, budgetAmount } = state
+        const { department, YCNPersonName, content, otherText, participantsInfo, budgetAmount } = state.communicationData
+        console.log(state, rootState, 111)
+        const { currentUser } = rootState.User
         let data = {
-          ApplicantName: YCNPersonName,
-          PersonnelNumberOfApplicant: '',
+          ApplicantName: currentUser.NameForLocal,
+          PersonnelNumberOfApplicant: currentUser.Title,
           Department: department,
-          PersonnelNumberOfUsher: '',
-          UsherName: '',
-          Role: '',
-          OtherUsher: '',
-          GroupAttendant: '',
-          Category: '',
-          OtherCategroyDescription: '',
-          Company: '',
+          PersonnelNumberOfUsher: 'ccc',
+          UsherName: YCNPersonName,
+          Role: '1',
+          OtherUsher: '无',
+          GroupAttendant: '无',
+          Category: content.join(','),
+          OtherCategroyDescription: otherText,
+          Company: participantsInfo.bussiness,
           NumberOfClient: participantsInfo.num,
-          ClientName: '',
-          ClientDepartment: '',
-          ClientPosition: '',
+          ClientName: participantsInfo.person.length ? participantsInfo.person[0].name : '',
+          ClientDepartment: participantsInfo.person.length ? participantsInfo.person[0].company : '',
+          ClientPosition: participantsInfo.person.length ? participantsInfo.person[0].position : '',
           MoreClients: JSON.stringify(participantsInfo.person),
-          StartDate: participantsInfo.startTime,
-          EndDate: participantsInfo.endTime,
+          StartDate: participantsInfo.startTime || '2020-08-01',
+          EndDate: participantsInfo.endTime || '2020-08-01',
           Purpose: participantsInfo.reason,
           Place: participantsInfo.correntArea,
-          OverseasPlace: '',
+          OverseasPlace: '111',
           Amount: budgetAmount.totalMoney,
           NumberOfPeople: budgetAmount.totalNum,
           PerCapital: budgetAmount.average,
           DetailOfBudget: JSON.stringify(budgetAmount.details),
-          Remark: '',
-          RequestType: ''
+          Remark: 'xxx',
+          RequestType: 'ttt'
         }
-        axios.get(apis.SUBMIT_COMMUNICATION_DATA, data).then(res => {
+        axios.post(apis.SUBMIT_COMMUNICATION_DATA, data).then(res => {
           const { data } = res
           resolve(data)
         }).catch(e => {

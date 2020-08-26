@@ -82,10 +82,10 @@ export default {
   },
   methods: {
     ...mapMutations('Communication', [
+      'resetCommunication',
       'updateCommunicationData'
     ]),
     ...mapActions('Communication', [
-      'resetCommunication',
       'submitCommunicationData'
     ]),
     next (name) {
@@ -94,6 +94,8 @@ export default {
     submit () {
       this.submitCommunicationData().then(res => {
         this.resetCommunication()
+        this.$router.push({ path: '/home' })
+        this.$_toast({ props: {message: '提交成功', duation: 3000}})
       })
     }
   },

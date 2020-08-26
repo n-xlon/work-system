@@ -1,9 +1,9 @@
 <template>
   <div class="department">
     <ul class="list">
-      <li class="item" v-for="(item, index) in departmentList" :key="item.Title" @click="choiceDepartment(index)">
+      <li class="item" v-for="(item, index) in departmentList" :key="item.Title" @click="choiceDepartment(item, index)">
         <span>{{ item.OfficialNameOfOrganizationNative }}</span>
-        <i class="selected el-icon-check" v-if="index === activeIndex"></i>
+        <i class="selected el-icon-check" v-if="item.Title === activeId"></i>
       </li>
     </ul>
   </div>
@@ -16,59 +16,63 @@ export default {
   data () {
     return {
       departmentList: [
-        {
-          Title: 1,
-          IDOfRelatedObject: 3,
-          OfficialNameOfOrganization: 'zt',
-          OfficialNameOfOrganizationNative: '设计部',
-          OrganizationalRank: 1,
-          UserBeSubstitutedFor: 'xx'
-        },
-        {
-          Title: 2,
-          IDOfRelatedObject: 3,
-          OfficialNameOfOrganization: 'zt',
-          OfficialNameOfOrganizationNative: '研发部',
-          OrganizationalRank: 1,
-          UserBeSubstitutedFor: 'xx'
-        },
-        {
-          Title: 3,
-          IDOfRelatedObject: 3,
-          OfficialNameOfOrganization: 'zt',
-          OfficialNameOfOrganizationNative: '人事行政部',
-          OrganizationalRank: 1,
-          UserBeSubstitutedFor: 'xx'
-        }
+        // {
+        //   Title: 1,
+        //   IDOfRelatedObject: 3,
+        //   OfficialNameOfOrganization: 'zt',
+        //   OfficialNameOfOrganizationNative: '设计部',
+        //   OrganizationalRank: 1,
+        //   UserBeSubstitutedFor: 'xx'
+        // },
+        // {
+        //   Title: 2,
+        //   IDOfRelatedObject: 3,
+        //   OfficialNameOfOrganization: 'zt',
+        //   OfficialNameOfOrganizationNative: '研发部',
+        //   OrganizationalRank: 1,
+        //   UserBeSubstitutedFor: 'xx'
+        // },
+        // {
+        //   Title: 3,
+        //   IDOfRelatedObject: 3,
+        //   OfficialNameOfOrganization: 'zt',
+        //   OfficialNameOfOrganizationNative: '人事行政部',
+        //   OrganizationalRank: 1,
+        //   UserBeSubstitutedFor: 'xx'
+        // }
       ],
-      activeIndex: -1
+      activeId: ''
     }
   },
   computed: {
-    ...mapState([
-      'communicationData'
-    ])
+    ...mapState({
+      communicationData: state => state.Communication.communicationData
+    })
   },
   created () {
+    this.activeId = this.communicationData.department
     this.getDepartment()
   },
   methods: {
-    ...mapMutations([
+    ...mapMutations('Communication', [
       'updateCommunicationData'
     ]),
     ...mapActions('Department', [
       'getAllDepartment'
     ]),
     getDepartment () {
+      const loading = this.$loading({background: 'transparent'})
       this.getAllDepartment().then(res => {
-        this.departmentList = res.list
-        const _index = this.departmentList.findIndex(it => it === this.communicationData.department)
-        this.activeIndex = _index >= 0 ? _index : -1
+        console.log(res, 'depart')
+        loading.close()
+        this.departmentList = res
+      }).catch(() => {
+        loading.close()
       })
     },
-    choiceDepartment (index) {
-      this.activeIndex = index
-      this.updateCommunicationData({ department: this.departmentList[this.activeIndex] })
+    choiceDepartment (item, index) {
+      this.activeId = item.Title
+      this.updateCommunicationData({ department: this.departmentList[index].Title })
       this.$router.back()
     }
   }
