@@ -28,12 +28,14 @@
         <span>参与人员</span>
         <i class="arrow el-icon-arrow-right"></i>
       </div>
-      <div class="item">
+      <div class="item" @click="choseStartTime">
         <span>开始时间</span>
+        <span class="time">{{communicationData.participantsInfo.startTime}}</span>
         <i class="arrow el-icon-arrow-right"></i>
       </div>
-      <div class="item">
+      <div class="item" @click="choseEndTime">
         <span>结束时间</span>
+        <span class="time">{{communicationData.participantsInfo.endTime}}</span>
         <i class="arrow el-icon-arrow-right"></i>
       </div>
       <div class="item">
@@ -65,6 +67,7 @@
       </div>
     </div>
     <el-button class="submit-btn" @click="submit" type="primary">提交</el-button>
+    <calendar :show="showCalendar" @chose="selectDate" @close="showCalendar = false"/>
   </div>
 </template>
 
@@ -78,6 +81,8 @@ export default {
   },
   data () {
     return {
+      showCalendar: false,
+      activeItem: ''
     }
   },
   methods: {
@@ -97,6 +102,20 @@ export default {
         this.$router.push({ path: '/home' })
         this.$_toast({ props: {message: '提交成功', duation: 3000}})
       })
+    },
+    selectDate (date) {
+      const info = this.communicationData.participantsInfo
+      if (!this.activeItem) return
+      this.updateCommunicationData({ participantsInfo: { ...info, [this.activeItem]: date } })
+      this.showCalendar = false
+    },
+    choseStartTime () {
+      this.showCalendar = true
+      this.activeItem = 'startTime'
+    },
+    choseEndTime () {
+      this.showCalendar = true
+      this.activeItem = 'endTime'
     }
   },
   mounted () {
@@ -123,6 +142,11 @@ export default {
       justify-content: space-between;
       box-sizing: border-box;
       border-bottom: 1px solid #EEEEEE;
+      .time {
+        display: inline-block;
+        width: calc(100% - 3rem);
+        text-align: right;
+      }
     }
     .sub-title {
       width: 100%;

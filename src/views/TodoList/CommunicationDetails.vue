@@ -1,84 +1,86 @@
 <template>
   <div class="communication-details">
-    <div class="apply-msg">
-      <div class="item">
-        <label>所属部门：</label>
-        <span>行政人事部</span>
+    <tempate v-if="Object.keys(details).length">
+      <div class="apply-msg">
+        <div class="item">
+          <label>所属部门：</label>
+          <span>{{details.Department}}</span>
+        </div>
+        <div class="item">
+          <label>YCN招待人员姓名：</label>
+          <span>{{details.UsherName}}</span>
+        </div>
+        <div class="item">
+          <label>交际费内容：</label>
+          <span>{{details.Category}}</span>
+        </div>
       </div>
-      <div class="item">
-        <label>YCN招待人员姓名：</label>
-        <span>张三</span>
+      <p class="title"><img src="../../assets/personnel@2x.png" alt=""><span class="name">客户参加人员信息</span></p>
+      <div class="application-info">
+        <div class="item">
+          <label>公司名称：</label>
+          <span>{{details.Company}}</span>
+        </div>
+        <div class="item">
+          <label>参加人员数：</label>
+          <span>{{details.NumberOfClient}}</span>
+        </div>
+        <div class="item">
+          <label>人员信息：</label>
+          <span>{{getPersonInfo}}</span>
+        </div>
+        <div class="item">
+          <label>实行时间：</label>
+          <span>{{details.StartDate}}</span>
+        </div>
+        <div class="item">
+          <label>结束时间：</label>
+          <span>{{details.EndDate}}</span>
+        </div>
+        <div class="item">
+          <label>实行场所：</label>
+          <span>{{details.Place}}</span>
+        </div>
+        <div class="item">
+          <label>实行目的与理由：</label>
+          <span>{{details.Purpose}}</span>
+        </div>
       </div>
-      <div class="item">
-        <label>交际费内容：</label>
-        <span>餐费</span>
+      <p class="title"><img src="../../assets/money@2x.png" alt=""><span class="name">预算金额</span></p>
+      <div class="money-info">
+        <div class="item">
+          <label>总计金额（元）：</label>
+          <span>{{details.Amount}}</span>
+        </div>
+        <div class="item">
+          <label>总人数：</label>
+          <span>{{details.NumberOfPeople}}</span>
+        </div>
+        <div class="item">
+          <label>人均（元）：</label>
+          <span>{{details.PerCapital}}</span>
+        </div>
+        <div class="item">
+          <label>项目：</label>
+          <span>{{getProjects}}</span>
+        </div>
       </div>
-    </div>
-    <p class="title"><img src="../../assets/personnel@2x.png" alt=""><span class="name">客户参加人员信息</span></p>
-    <div class="application-info">
-      <div class="item">
-        <label>公司名称：</label>
-        <span>某某网络公司</span>
+      <p class="others"><span>备注：</span>{{details.Remark}}</p>
+      <div class="approval">
+        <div class="approval-switch">
+          <span>审批：</span>
+          <el-radio-group v-model="result">
+            <el-radio :label="0">同意</el-radio>
+            <el-radio :label="1">不同意</el-radio>
+          </el-radio-group>
+        </div>
+        <div class="approval-content">
+          <span>审批意见：</span>
+          <el-input type="textarea" v-model="comment"></el-input>
+        </div>
       </div>
-      <div class="item">
-        <label>参加人员数：</label>
-        <span>2</span>
-      </div>
-      <div class="item">
-        <label>人员信息：</label>
-        <span>李思（某某公司 销售经理）</span>
-      </div>
-      <div class="item">
-        <label>实行时间：</label>
-        <span>2019-10-11</span>
-      </div>
-      <div class="item">
-        <label>结束时间：</label>
-        <span>2019-10-11</span>
-      </div>
-      <div class="item">
-        <label>实行场所：</label>
-        <span>某某酒店</span>
-      </div>
-      <div class="item">
-        <label>实行目的与理由：</label>
-        <span>客户接待</span>
-      </div>
-    </div>
-    <p class="title"><img src="../../assets/money@2x.png" alt=""><span class="name">预算金额</span></p>
-    <div class="money-info">
-      <div class="item">
-        <label>总计金额（元）：</label>
-        <span>300</span>
-      </div>
-      <div class="item">
-        <label>总人数：</label>
-        <span>2</span>
-      </div>
-      <div class="item">
-        <label>人均（元）：</label>
-        <span>100</span>
-      </div>
-      <div class="item">
-        <label>项目：</label>
-        <span>餐费</span>
-      </div>
-    </div>
-    <p class="others"><span>备注：</span>无</p>
-    <div class="approval">
-      <div class="approval-switch">
-        <span>审批：</span>
-        <el-radio-group v-model="result">
-          <el-radio :label="0">同意</el-radio>
-          <el-radio :label="1">不同意</el-radio>
-        </el-radio-group>
-      </div>
-      <div class="approval-content">
-        <span>审批意见：</span>
-        <el-input type="textarea" v-model="comment"></el-input>
-      </div>
-    </div>
-    <el-button class="approval-btn" type="primary" @click="handleApproval">提交</el-button>
+      <el-button class="approval-btn" type="primary" @click="handleApproval">提交</el-button>
+    </tempate>
   </div>
 </template>
 
@@ -93,10 +95,23 @@ export default {
       }
     }
   },
+  computed: {
+    getPersonInfo () {
+      if (!Object.keys(this.details).length) return ''
+      const [{ name, company, position }] = JSON.parse(this.details.MoreClients)
+      return `${name} ( ${company} ${position} )`
+      // return ''
+    },
+    getProjects () {
+      const DetailOfBudget = JSON.parse(this.details.DetailOfBudget)
+      return DetailOfBudget.map(it => it.category).join(',')
+    }
+  },
   data () {
     return {
       result: 1,
-      comment: 'xxx'
+      comment: '',
+      details: {}
     }
   },
   methods: {
@@ -106,20 +121,29 @@ export default {
     ]),
     handleApproval () {
       this.approvalTask({
-        taskId: task.TaskId,
-        result: !this.result,
+        taskId: this.task.TaskId,
+        result: !this.result ? '批准' : '拒绝',
         comment: this.comment
       }).then(data => {
         console.log(data, '提交成功')
+        this.$emit('back')
       })
     },
-    initDetails () {
+    async initDetails () {
       const { task } = this
       const data = {
         WorkflowNum: task.WorkflowNumber,
         WFInstanceId: task.WorkflowInstanceId
       }
-      this.getCommunicateDetails(data)
+      try {
+        const loadingDetail = this.$loading({background: 'transparent'})
+        const details = await this.getCommunicateDetails(data)
+        loadingDetail.close()
+        const { SocialExpensesData, ApprovalHistory } = details
+        this.details = SocialExpensesData
+        console.log(details)
+      } catch (e) {
+      }
     }
   },
   mounted () {

@@ -9,7 +9,8 @@ import ElementUI from 'element-ui'
 import { RouteMap } from './config/index'
 import { installToast } from './utils/toast'
 import './router/router'
-import Vconsole from 'vconsole'
+// import Vconsole from 'vconsole'
+import Calendar from './components/Calendar'
 
 Vue.use(ElementUI)
 
@@ -18,6 +19,8 @@ Vue.config.productionTip = false
 Vue.prototype.$config = { RouteMap }
 
 Vue.prototype.$_toast = window.$_toast = (options) => installToast(options)
+
+Vue.component('Calendar', Calendar)
 
 const vm = new Vue({
   router,

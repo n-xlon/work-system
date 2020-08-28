@@ -4,7 +4,7 @@
       <li class="col_item" v-for="it in list" :key="it.id" @click="choiceFree(it)">
         <span>{{ it.text }}</span>
         <i class="selected el-icon-check" v-if="selectItem.includes(it.id)"></i>
-        <el-input class="input-text-area input-rlt" v-model="text" type="textarea" @change="updateData" v-if="selectItem === 3 && it.id === 3"></el-input>
+        <el-input class="input-text-area input-rlt" v-model="text" type="textarea" @change="updateData" v-if="it.id === 3 && selectItem.includes(it.id)"></el-input>
       </li>
     </ul>
   </div>

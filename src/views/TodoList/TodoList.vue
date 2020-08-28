@@ -9,7 +9,7 @@
       </div>
     </template>
     <div class="task-details" v-if="showTodoListDetails">
-      <communication-details :task="currentTask"/>
+      <communication-details :task="currentTask" @back="goBack"/>
     </div>
   </div>
 </template>
@@ -56,6 +56,10 @@ export default {
       }).catch(() => {
         loadingTodoList.close()
       })
+    },
+    goBack () {
+      this.updateType(false)
+      this.getTaskList()
     }
   }
 }
