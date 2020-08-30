@@ -2,23 +2,30 @@
   <div class="work_flows">
     <div class="search-flows">
       <el-input
+        class="search-input"
         placeholder="搜索"
         prefix-icon="el-icon-search"
+        @input="inputFilter"
         v-model="searchValue">
       </el-input>
     </div>
-    <div class="flows-types" v-for="item in flows" :key="item.id">
-      <div class="item" @click="handleWorkFlows(item.id)">
-        <span class="label">
-          <img class="image" :src="item.img" alt="">
-          <span class="name">{{item.text}}</span>
-        </span><i class="right-arrow el-icon-arrow-right"></i>
+    <template v-if="flows.length">
+      <div class="flows-types" v-for="item in flows" :key="item.id">
+        <div class="item" @click="handleWorkFlows(item.id)">
+          <span class="label">
+            <img class="image" :src="item.img" alt="">
+            <span class="name">{{item.text}}</span>
+          </span><i class="right-arrow el-icon-arrow-right"></i>
+        </div>
+        <ul v-if="activeItem.includes(item.id)">
+          <li class="sub-tasks" @click="jumpToPath(it.path)" v-for="(it, index) in item.children" :key="index">
+            <span class="name">{{it.text}}</span>
+          </li>
+        </ul>
       </div>
-      <ul v-if="activeItem.includes(item.id)">
-        <li class="sub-tasks" @click="jumpToPath(it.path)" v-for="(it, index) in item.children" :key="index">
-          <span class="name">{{it.text}}</span>
-        </li>
-      </ul>
+    </template>
+    <div class="no-results" v-else>
+      <span>暂无搜索结果</span>
     </div>
   </div>
 </template>
@@ -28,27 +35,32 @@ export default {
   data () {
     return {
       searchValue: '',
-      flows: [
+      flows: [],
+      backUpFlows: [
         {
           id: 0,
           text: '人事流程',
           img: require('../../assets/portraitse@2x.png'),
           children: [
-            { text: '交际费申请单', label: 'communication', path: '/workflow/communication' },
-            { text: '请假单', label: 'communication' }
-          ]
-        },
-        {
-          id: 1,
-          text: '其他流程',
-          img: require('../../assets/function@2x.png'),
-          children: [
-            { text: '合同申请单', item_id: 'contract_application' }
+            { text: '交际费申请单', label: 'communication', path: '/workflow/communication' }
+            // { text: '请假单', label: 'communication' }
           ]
         }
+        // {
+        //   id: 1,
+        //   text: '其他流程',
+        //   img: require('../../assets/function@2x.png'),
+        //   children: [
+        //     { text: '合同申请单', item_id: 'contract_application' }
+        //   ]
+        // }
       ],
-      activeItem: []
+      activeItem: [],
+      timer: null
     }
+  },
+  created () {
+    this.flows = this.backUpFlows
   },
   methods: {
     handleWorkFlows (id) {
@@ -62,6 +74,18 @@ export default {
     jumpToPath (path) {
       console.log(path, 111)
       this.$router.push(path)
+    },
+    inputFilter (val) {
+      clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        console.log(this.backUpFlows, 333)
+        const list = this.backUpFlows.filter(item => item.children.some(it => it.text.indexOf(val) >= 0))
+        list.forEach(item => {
+          item.children.length && (item.children = item.children.filter(it => it.text.indexOf(val) >= 0))
+        })
+        this.flows = list
+        this.activeItem = [...list.map(it => it.id)]
+      }, 500)
     }
   }
 }
@@ -113,9 +137,17 @@ export default {
       }
     }
   }
+  .no-results {
+    font-size: .4rem;
+  }
 
   .right-arrow {
     font-size: 0.6rem;
     color: #CCCCCC;
+  }
+</style>
+<style lang="scss">
+  .search-input input {
+    height: 1rem;
   }
 </style>

@@ -87,6 +87,8 @@ export default {
       position: fixed;
       bottom: 0;
       left: 0;
+      font-size: .4rem;
+      padding: .4rem 1rem;
     }
   }
 </style>

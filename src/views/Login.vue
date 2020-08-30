@@ -4,10 +4,10 @@
     <div class="login-contain">
       <el-form :model="form" :rules="rules" ref="loginForm">
         <el-form-item prop="username">
-          <el-input v-model="form.username" clearable placeholder="请输入用户名"></el-input>
+          <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
         </el-form-item>
         <el-form-item prop="username">
-          <el-input type="password" clearable v-model="form.password" placeholder="请输入密码"></el-input>
+          <el-input type="password" v-model="form.password" placeholder="请输入密码"></el-input>
         </el-form-item>
       </el-form>
       <el-button :loading="loadingLogin" class="submit-login" type="primary" @click="login">登录</el-button>
@@ -76,6 +76,8 @@ export default {
     .submit-login {
       width: 100%;
       background: #004F9A;
+      padding: .3rem 1rem;
+      font-size: .4rem;
     }
 
     .image_1, .image_2 {

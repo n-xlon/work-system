@@ -67,6 +67,7 @@ ul,li {
       text-align: right;
       outline: none;
       border: none;
+      height: .8rem;
     }
   }
 }

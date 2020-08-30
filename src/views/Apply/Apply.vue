@@ -1,13 +1,13 @@
 <template>
   <div class="my-apply">
     <div class="apply-list" v-for="(item, index) in applyList" :key="index">
-      <div class="item" @click="item.isChecked = !item.isChecked">
+      <div class="item" @click="checkDetails(item)">
         <span class="apply-name">{{item.WFDefinitionName}}</span>
         <span :class="['apply-status', getApplyStatusStyle(item.Status)]">{{item.Status}}</span>
         <i :class="['arrow', 'el-icon-arrow-right', {'is-open': item.isChecked}]"></i>
       </div>
       <div class="apply-details" v-if="item.isChecked">
-        <div class="list"><span>申请时间：{{item.Created}}</span><span>申请金额（元）：{{300}}</span></div>
+        <div class="list"><span>申请时间：{{item.Created}}</span><span>申请金额（元）：{{item.Amount}}</span></div>
         <div class="list"><span>审批意见：{{item.Status}}</span></div>
       </div>
     </div>
@@ -29,6 +29,9 @@ export default {
     ...mapActions('Apply', [
       'getApplyList'
     ]),
+    ...mapActions('TodoList', [
+      'getCommunicateDetails'
+    ]),
     getApplyStatusStyle (status) {
       if (status === '同意') {
         return 'agree'
@@ -42,11 +45,23 @@ export default {
       const loading = this.$loading({background: 'transparent'})
       this.getApplyList().then(res => {
         loading.close()
-        this.applyList = res.map(it => ({...it, isChecked: false}))
+        this.applyList = res.map(it => ({...it, Amount: '', isChecked: false}))
         console.log(this.applyList)
       }).catch(() => {
         loading.close()
       })
+    },
+    async checkDetails (item) {
+      item.isChecked = !item.isChecked
+      console.log(item)
+      if (item.isChecked) {
+        const data = {
+          WorkflowNum: item.WFInstanceName,
+          WFInstanceId: item.WFInstanceId
+        }
+        const details = await this.getCommunicateDetails(data)
+        console.log(details)
+      }
     }
   }
 }

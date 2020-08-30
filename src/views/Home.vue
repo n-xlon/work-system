@@ -33,9 +33,9 @@ export default {
       workList: [
         { id: 0, text: '发起流程', path: '/workflow', img: require('../assets/flow@2x.png') },
         { id: 1, text: '我的待办', path: '/todoList', img: require('../assets/commission@2x.png') },
-        { id: 2, text: '我的申请', path: '/myApply', img: require('../assets/apply@2x.png') },
-        { id: 3, text: '我参与的', img: require('../assets/joinActivity@2x.png') },
-        { id: 4, text: '委托代理', img: require('../assets/dispose@2x.png') }
+        { id: 2, text: '我的申请', path: '/myApply', img: require('../assets/apply@2x.png') }
+        // { id: 3, text: '我参与的', img: require('../assets/joinActivity@2x.png') },
+        // { id: 4, text: '委托代理', img: require('../assets/dispose@2x.png') }
       ],
       taskLen: 0
     }

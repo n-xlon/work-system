@@ -1,6 +1,6 @@
 <template>
   <div class="communication-details">
-    <tempate v-if="Object.keys(details).length">
+    <template v-if="Object.keys(details).length">
       <div class="apply-msg">
         <div class="item">
           <label>所属部门：</label>
@@ -80,7 +80,7 @@
         </div>
       </div>
       <el-button class="approval-btn" type="primary" @click="handleApproval">提交</el-button>
-    </tempate>
+    </template>
   </div>
 </template>
 
@@ -135,14 +135,15 @@ export default {
         WorkflowNum: task.WorkflowNumber,
         WFInstanceId: task.WorkflowInstanceId
       }
+      const loadingDetail = this.$loading({background: 'transparent'})
       try {
-        const loadingDetail = this.$loading({background: 'transparent'})
         const details = await this.getCommunicateDetails(data)
         loadingDetail.close()
         const { SocialExpensesData, ApprovalHistory } = details
         this.details = SocialExpensesData
         console.log(details)
       } catch (e) {
+        loadingDetail.close()
       }
     }
   },
