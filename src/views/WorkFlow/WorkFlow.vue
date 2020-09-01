@@ -72,13 +72,11 @@ export default {
       }
     },
     jumpToPath (path) {
-      console.log(path, 111)
       this.$router.push(path)
     },
     inputFilter (val) {
       clearTimeout(this.timer)
       this.timer = setTimeout(() => {
-        console.log(this.backUpFlows, 333)
         const list = this.backUpFlows.filter(item => item.children.some(it => it.text.indexOf(val) >= 0))
         list.forEach(item => {
           item.children.length && (item.children = item.children.filter(it => it.text.indexOf(val) >= 0))

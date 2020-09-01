@@ -125,7 +125,6 @@ export default {
         result: !this.result ? '批准' : '拒绝',
         comment: this.comment
       }).then(data => {
-        console.log(data, '提交成功')
         this.$emit('back')
       })
     },
@@ -141,7 +140,6 @@ export default {
         loadingDetail.close()
         const { SocialExpensesData, ApprovalHistory } = details
         this.details = SocialExpensesData
-        console.log(details)
       } catch (e) {
         loadingDetail.close()
       }

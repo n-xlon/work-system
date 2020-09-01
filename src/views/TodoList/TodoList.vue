@@ -50,7 +50,6 @@ export default {
     getTaskList () {
       const loadingTodoList = this.$loading({background: 'transparent'})
       this.getTodoList().then(res => {
-        console.log(res, 111)
         loadingTodoList.close()
         this.list = res
       }).catch(() => {

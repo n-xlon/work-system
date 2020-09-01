@@ -46,21 +46,19 @@ export default {
       this.getApplyList().then(res => {
         loading.close()
         this.applyList = res.map(it => ({...it, Amount: '', isChecked: false}))
-        console.log(this.applyList)
       }).catch(() => {
         loading.close()
       })
     },
     async checkDetails (item) {
       item.isChecked = !item.isChecked
-      console.log(item)
       if (item.isChecked) {
         const data = {
           WorkflowNum: item.WFInstanceName,
           WFInstanceId: item.WFInstanceId
         }
-        const details = await this.getCommunicateDetails(data)
-        console.log(details)
+        const { ApprovalHistory, SocialExpensesData } = await this.getCommunicateDetails(data)
+        item.Amount = SocialExpensesData.Amount || 0
       }
     }
   }

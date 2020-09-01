@@ -3,7 +3,7 @@
     <ul class="col_list" v-for="(item, index) in costList" :key="index">
       <li class="col_item" v-for="it in labels" :key="it.label">
         <span>{{ it.text }}</span>
-        <el-input class="input-layout input-rlt" size="mini" v-model="item[it.label]" clearable></el-input>
+        <el-input class="input-layout input-rlt" size="mini" v-model="item[it.label]"></el-input>
       </li>
     </ul>
     <p class="cost_list-add"><i class="el-icon-circle-plus-outline" @click="addCostList"></i></p>
@@ -29,7 +29,7 @@ export default {
         { text: '人均 (元)', label: 'perCapitalAmount' }
       ],
       costList: [
-        { category: '', amount: 0, peopleNumber: 0, perCapitalAmount: 0 }
+        { category: '', amount: '', peopleNumber: '', perCapitalAmount: '' }
       ]
     }
   },
