@@ -63,7 +63,6 @@ export default {
     getDepartment () {
       const loading = this.$loading({background: 'transparent'})
       this.getAllDepartment().then(res => {
-        console.log(res, 'depart')
         loading.close()
         this.departmentList = res
       }).catch(() => {

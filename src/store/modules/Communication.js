@@ -42,7 +42,6 @@ export default {
     submitCommunicationData ({ state, rootState }, payload) {
       return new Promise((resolve, reject) => {
         const { department, YCNPersonName, content, otherText, participantsInfo, budgetAmount } = state.communicationData
-        console.log(state, rootState, 111)
         const { currentUser } = rootState.User
         let data = {
           ApplicantName: currentUser.NameForLocal,

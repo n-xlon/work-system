@@ -3,66 +3,66 @@
     <template v-if="Object.keys(details).length">
       <div class="apply-msg">
         <div class="item">
-          <label>所属部门：</label>
-          <span>{{details.Department}}</span>
+          <label class="sub-title">所属部门：</label>
+          <span class="content">{{details.Department}}</span>
         </div>
         <div class="item">
-          <label>YCN招待人员姓名：</label>
-          <span>{{details.UsherName}}</span>
+          <label class="sub-title">YCN招待人员姓名：</label>
+          <span class="content">{{details.UsherName}}</span>
         </div>
         <div class="item">
-          <label>交际费内容：</label>
-          <span>{{details.Category}}</span>
+          <label class="sub-title">交际费内容：</label>
+          <span class="content">{{details.Category}}</span>
         </div>
       </div>
       <p class="title"><img src="../../assets/personnel@2x.png" alt=""><span class="name">客户参加人员信息</span></p>
       <div class="application-info">
         <div class="item">
-          <label>公司名称：</label>
-          <span>{{details.Company}}</span>
+          <label class="sub-title">公司名称：</label>
+          <span class="content">{{details.Company}}</span>
         </div>
         <div class="item">
-          <label>参加人员数：</label>
-          <span>{{details.NumberOfClient}}</span>
+          <label class="sub-title">参加人员数：</label>
+          <span class="content">{{details.NumberOfClient}}</span>
         </div>
         <div class="item">
-          <label>人员信息：</label>
-          <span>{{getPersonInfo}}</span>
+          <label class="sub-title">人员信息：</label>
+          <span class="content">{{getPersonInfo}}</span>
         </div>
         <div class="item">
-          <label>实行时间：</label>
-          <span>{{details.StartDate}}</span>
+          <label class="sub-title">实行时间：</label>
+          <span class="content">{{details.StartDate}}</span>
         </div>
         <div class="item">
-          <label>结束时间：</label>
-          <span>{{details.EndDate}}</span>
+          <label class="sub-title">结束时间：</label>
+          <span class="content">{{details.EndDate}}</span>
         </div>
         <div class="item">
-          <label>实行场所：</label>
-          <span>{{details.Place}}</span>
+          <label class="sub-title">实行场所：</label>
+          <span class="content">{{details.Place}}</span>
         </div>
         <div class="item">
-          <label>实行目的与理由：</label>
-          <span>{{details.Purpose}}</span>
+          <label class="sub-title">实行目的与理由：</label>
+          <span class="content">{{details.Purpose}}</span>
         </div>
       </div>
       <p class="title"><img src="../../assets/money@2x.png" alt=""><span class="name">预算金额</span></p>
       <div class="money-info">
         <div class="item">
-          <label>总计金额（元）：</label>
-          <span>{{details.Amount}}</span>
+          <label class="sub-title">总计金额（元）：</label>
+          <span class="content">{{details.Amount}}</span>
         </div>
         <div class="item">
-          <label>总人数：</label>
-          <span>{{details.NumberOfPeople}}</span>
+          <label class="sub-title">总人数：</label>
+          <span class="content">{{details.NumberOfPeople}}</span>
         </div>
         <div class="item">
-          <label>人均（元）：</label>
-          <span>{{details.PerCapital}}</span>
+          <label class="sub-title">人均（元）：</label>
+          <span class="content">{{details.PerCapital}}</span>
         </div>
         <div class="item">
-          <label>项目：</label>
-          <span>{{getProjects}}</span>
+          <label class="sub-title">项目：</label>
+          <span class="content">{{getProjects}}</span>
         </div>
       </div>
       <p class="others"><span>备注：</span>{{details.Remark}}</p>
@@ -163,6 +163,13 @@ export default {
         margin-top: .3rem;
         &:first-child {
           margin-top: 0;
+        }
+        .sub-title {
+          vertical-align: top;
+        }
+        .content {
+          display: inline-block;
+          width: calc(100% - 4.2rem);
         }
       }
       label {

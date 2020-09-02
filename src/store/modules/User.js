@@ -18,7 +18,6 @@ export default {
       return new Promise((resolve, reject) => {
         axios.post(apis.LOGIN, payload).then(res => {
           const { SessionKey, EmployeeInfo } = res
-          console.log(res, 555)
           localStorage.setItem('userInfo', JSON.stringify({ SessionKey, EmployeeInfo }))
           commit('updateUserInfo', { SessionKey, EmployeeInfo })
           resolve(res)

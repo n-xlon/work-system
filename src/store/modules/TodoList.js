@@ -34,7 +34,6 @@ export default {
     getCommunicateDetails ({state}, payload) {
       return new Promise((resolve, reject) => {
         axios.post(apis.GET_DETAILS, payload).then(res => {
-          console.log(res)
           resolve(res)
         }).catch(e => {
           reject(e)

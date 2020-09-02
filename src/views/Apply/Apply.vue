@@ -1,6 +1,6 @@
 <template>
   <div class="my-apply">
-    <div class="apply-list" v-for="(item, index) in applyList" :key="index">
+    <div class="apply-list" v-for="(item, index) in list" :key="index">
       <div class="item" @click="checkDetails(item)">
         <span class="apply-name">{{item.WFDefinitionName}}</span>
         <span :class="['apply-status', getApplyStatusStyle(item.Status)]">{{item.Status}}</span>
@@ -19,11 +19,17 @@ import { mapActions } from 'vuex'
 export default {
   data () {
     return {
-      applyList: []
+      applyList: [],
+      list: [],
+      pageSize: 20,
+      page: 1
     }
   },
   created () {
     this.getApply()
+  },
+  mounted () {
+    this.initListenEvent()
   },
   methods: {
     ...mapActions('Apply', [
@@ -46,6 +52,7 @@ export default {
       this.getApplyList().then(res => {
         loading.close()
         this.applyList = res.map(it => ({...it, Amount: '', isChecked: false}))
+        this.getData()
       }).catch(() => {
         loading.close()
       })
@@ -60,6 +67,25 @@ export default {
         const { ApprovalHistory, SocialExpensesData } = await this.getCommunicateDetails(data)
         item.Amount = SocialExpensesData.Amount || 0
       }
+    },
+    getData () {
+      this.list = this.applyList.slice(0, this.page * this.pageSize)
+    },
+    initListenEvent () {
+      const dom = document.querySelector('.my-apply')
+      dom && dom.addEventListener('scroll', this.scrollEvent)
+    },
+    scrollEvent (e) {
+      const el = e.target
+      const { clientHeight, scrollHeight, scrollTop } = el
+      if (clientHeight + scrollTop >= scrollHeight) {
+        if (this.page * this.pageSize >= this.applyList.length) {
+          this.$_toast({ props: {message: '没有更多数据了', duation: 3000}})
+          return
+        }
+        this.page += 1
+        this.getData()
+      }
     }
   }
 }
@@ -67,6 +93,8 @@ export default {
 
 <style lang="scss">
   .my-apply {
+    overflow: auto;
+    height: 100%;
     .apply-list {
       border-bottom: 1px solid #EEEEEE;
       &:last-child {

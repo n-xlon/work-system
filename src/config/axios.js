@@ -1,12 +1,17 @@
 import axios from 'axios'
 import store from '../store'
 
+const options = {}
+if (process.env.NODE_ENV === 'production') {
+  options.baseURL = 'https://appsrv.yokogawachina.com:8585'
+}
+
 const service = axios.create({
+  ...options,
   timeout: 50000
 })
 
 service.interceptors.request.use(config => {
-  console.log(config, 222)
   const SessionKey = store.state.User.SessionKey
   config.headers['Content_Type'] = 'application/x-www-form-urlencoded'
   if (!config.headers.SessionKey) {
@@ -14,12 +19,10 @@ service.interceptors.request.use(config => {
   }
   return config
 }, error => {
-  console.log(error, 222)
   return Promise.reject(error)
 })
 
 service.interceptors.response.use(response => {
-  console.log(response, 999)
   const { status, data } = response
   if (status !== 200 || (status === 200 && Object.prototype.toString.call(data) === '[object String]')) {
     window.$_toast({ props: {message: response.data, duation: 3000}})

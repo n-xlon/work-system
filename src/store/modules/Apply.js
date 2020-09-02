@@ -10,9 +10,7 @@ export default {
   actions: {
     getApplyList (_, payload) {
       return new Promise((resolve, reject) => {
-        console.log(payload, 11)
         axios.post(apis.GET_APPLY_LIST, payload).then(res => {
-          console.log(res)
           resolve(res)
         }).catch(e => {
           reject(e)

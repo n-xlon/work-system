@@ -30,7 +30,6 @@ export default {
   },
   methods: {
     chooseDate (date) {
-      console.log(date)
       this.$emit('chose', date)
     },
     closeCalendar () {

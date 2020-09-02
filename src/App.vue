@@ -33,6 +33,7 @@ html, body {
   width: 100%;
   height: 100%;
   margin: 0;
+  overflow: hidden;
 }
 ul,li {
   margin: 0;
@@ -55,6 +56,7 @@ ul,li {
     width: 100%;
     position: absolute;
     top: 1.2rem;
+    height: calc(100% - 1.2rem);
   }
 
   .contain.is-login {

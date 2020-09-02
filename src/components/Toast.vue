@@ -51,7 +51,7 @@ export default {
     min-width: 50%;
     background: rgba(0, 0, 0, 0.5);
     color: #ffffff;
-    font-size: .5rem;
+    font-size: .45rem;
     border-radius: 2px;
     padding: .5rem .5rem;
     position: absolute;

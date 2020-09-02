@@ -32,9 +32,7 @@ export function installToast(options) {
   toastList.push(toastClass)
   document.body.appendChild(toastVm.$el)
 
-  console.log(toastVm)
   toastVm.$on('close', (that) => {
-    console.log(that)
   })
 }
 
