@@ -6,12 +6,13 @@ module.exports = {
     node: true,
     es6: true
   },
+  extends: 'standard',
   parserOptions: {
     ecmaVersion: 7,
     sourceType: 'module'
   },
-  extends: [
-    // "plugin:vue/recommended",
-    "eslint:recommended"
-  ]
+  // extends: [
+  //   // "plugin:vue/recommended",
+  //   // "eslint:recommended"
+  // ]
 }

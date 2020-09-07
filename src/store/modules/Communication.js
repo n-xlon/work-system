@@ -47,11 +47,11 @@ export default {
           ApplicantName: currentUser.NameForLocal,
           PersonnelNumberOfApplicant: currentUser.Title,
           Department: department,
-          PersonnelNumberOfUsher: 'ccc',
+          PersonnelNumberOfUsher: '1',
           UsherName: YCNPersonName,
-          Role: '1',
-          OtherUsher: '无',
-          GroupAttendant: '无',
+          Role: '',
+          OtherUsher: '',
+          GroupAttendant: '',
           Category: content.join(','),
           OtherCategroyDescription: otherText,
           Company: participantsInfo.bussiness,
@@ -64,13 +64,13 @@ export default {
           EndDate: participantsInfo.endTime || '',
           Purpose: participantsInfo.reason,
           Place: participantsInfo.correntArea,
-          OverseasPlace: '111',
+          OverseasPlace: '',
           Amount: budgetAmount.totalMoney,
           NumberOfPeople: budgetAmount.totalNum,
           PerCapital: budgetAmount.average,
           DetailOfBudget: JSON.stringify(budgetAmount.details),
-          Remark: 'xxx',
-          RequestType: 'ttt'
+          Remark: '',
+          RequestType: ''
         }
         axios.post(apis.SUBMIT_COMMUNICATION_DATA, data).then(res => {
           const { data } = res

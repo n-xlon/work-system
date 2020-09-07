@@ -28,7 +28,7 @@ export default {
   },
   created () {
     const { content, otherText } = this.communicationData
-    this.selectItem = content
+    this.selectItem = this.list.filter(item => content.includes(item.value)).map(it => it.id)
     this.text = otherText
   },
   computed: {
@@ -41,8 +41,9 @@ export default {
       'updateCommunicationData'
     ]),
     choiceFree (item) {
-      if (item.id in this.selectItem) {
-        const index = this.list.findIndex(it => it.id === item.id)
+      console.log(item, this.selectItem)
+      if (this.selectItem.includes(item.id)) {
+        const index = this.selectItem.findIndex(it => it === item.id)
         this.selectItem.splice(index, 1)
       } else {
         this.selectItem.push(item.id)

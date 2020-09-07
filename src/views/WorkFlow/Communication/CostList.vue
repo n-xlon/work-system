@@ -41,7 +41,7 @@ export default {
       'updateCommunicationData'
     ]),
     addCostList () {
-      this.costList.push({ category: '', amount: 0, peopleNumber: 0, perCapitalAmount: 0 })
+      this.costList.push({ category: '', amount: '', peopleNumber: '', perCapitalAmount: '' })
     },
     submitCost () {
       this.updateCommunicationData({ budgetAmount: { ...this.communicationData.budgetAmount, details: this.costList } })

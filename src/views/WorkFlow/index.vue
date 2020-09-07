@@ -11,6 +11,7 @@ export default {
 
 <style scoped lang="scss">
   .work_flow_layout {
-    overflow-x: hidden;
+    height: 100%;
+    overflow-y: auto;
   }
 </style>

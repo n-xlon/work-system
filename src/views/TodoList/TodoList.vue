@@ -67,7 +67,8 @@ export default {
 <style lang="scss">
   .todo-list {
     width: 100%;
-    /*height: 100%;*/
+    height: 100%;
+    overflow: auto;
     .tasks {
       width: 100%;
       height: 1.2rem;
