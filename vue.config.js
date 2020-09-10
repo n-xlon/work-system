@@ -9,13 +9,13 @@ module.exports = {
   assetsDir: './src/assets',
   lintOnSave: true,
   devServer: {
-    port: 8081, // 端口号
+    port: 8082, // 端口号
     host: '0.0.0.0', // 本地和局域网
     https: true,
     open: true, // 配置自动启动浏览器
     proxy: {
       '/api': {
-        target: 'https://appsrv.yokogawachina.com:8585',
+        target: 'https://appsrv.yokogawachina.com:8585/bpm',
         // changeOrigin: true,
         secure: true
       }
