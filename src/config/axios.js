@@ -3,7 +3,7 @@ import store from '../store'
 
 const options = {}
 if (process.env.NODE_ENV === 'production') {
-  options.baseURL = 'https://appsrv.yokogawachina.com:8585'
+  options.baseURL = 'https://appsrv.yokogawachina.com:8585/bpm'
 }
 
 const service = axios.create({

@@ -15,7 +15,7 @@ module.exports = {
     open: true, // 配置自动启动浏览器
     proxy: {
       '/api': {
-        target: 'https://appsrv.yokogawachina.com:8585',
+        target: 'https://appsrv.yokogawachina.com:8585/bpm',
         // changeOrigin: true,
         secure: true
       }
