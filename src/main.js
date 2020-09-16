@@ -9,7 +9,7 @@ import ElementUI from 'element-ui'
 import { RouteMap } from './config/index'
 import { installToast } from './utils/toast'
 import './router/router'
-// import Vconsole from 'vconsole'
+import Vconsole from 'vconsole'
 import Calendar from './components/Calendar'
 
 Vue.use(ElementUI)
@@ -28,6 +28,6 @@ const vm = new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-// const vConsole = new Vconsole()
+const vConsole = new Vconsole()
 
 window.vm = vm
