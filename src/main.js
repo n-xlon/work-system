@@ -11,6 +11,7 @@ import { installToast } from './utils/toast'
 import './router/router'
 import Vconsole from 'vconsole'
 import Calendar from './components/Calendar'
+import './scss/index.scss'
 
 Vue.use(ElementUI)
 

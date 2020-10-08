@@ -41,7 +41,6 @@ export default {
       'updateCommunicationData'
     ]),
     choiceFree (item) {
-      console.log(item, this.selectItem)
       if (this.selectItem.includes(item.id)) {
         const index = this.selectItem.findIndex(it => it === item.id)
         this.selectItem.splice(index, 1)

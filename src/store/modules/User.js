@@ -17,7 +17,8 @@ export default {
   actions: {
     loginIn ({ commit }, payload) {
       return new Promise((resolve, reject) => {
-        axios.post(apis.LOGIN, payload).then(res => {
+        const params = location.href.match(/[?|&]code\=(\w+)/)
+        axios.post(apis.LOGIN, { code: params ? params[1] : '' }).then(res => {
           const { SessionKey, EmployeeInfo } = res
           localStorage.setItem('userInfo', JSON.stringify({ SessionKey, EmployeeInfo }))
           commit('updateUserInfo', { SessionKey, EmployeeInfo })
@@ -31,17 +32,6 @@ export default {
       return new Promise((resolve, reject) => {
         axios.get(apis.GET_USER_LIST, payload).then(res => {
           const { data } = res
-          resolve(data)
-        }).catch(e => {
-          reject(e)
-        })
-      })
-    },
-    getWxToken (_) {
-      return new Promise((resolve, reject) => {
-        axios.get(`${wxUrl}cgi-bin/gettoken`, wxConfig).then(res => {
-          const { data } = res
-          console.log(res)
           resolve(data)
         }).catch(e => {
           reject(e)

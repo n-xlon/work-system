@@ -51,15 +51,15 @@
     <div class="list">
       <div class="item">
         <span>总结金额 (元)</span>
-        <el-input class="input-layout input-rlt" size="mini" v-model="communicationData.budgetAmount.totalMoney"></el-input>
+        <el-input class="input-layout input-rlt" type="number" size="mini" v-model="communicationData.budgetAmount.totalMoney"></el-input>
       </div>
       <div class="item">
         <span>总人数</span>
-        <el-input class="input-layout input-rlt" size="mini" v-model="communicationData.budgetAmount.totalNum"></el-input>
+        <el-input class="input-layout input-rlt" type="number" size="mini" v-model="communicationData.budgetAmount.totalNum"></el-input>
       </div>
       <div class="item">
         <span>人均 (元)</span>
-        <el-input class="input-layout input-rlt" size="mini" v-model="communicationData.budgetAmount.average"></el-input>
+        <el-input :disabled="true" class="input-layout input-rlt" type="number" size="mini" v-model="communicationData.budgetAmount.average"></el-input>
       </div>
       <div class="item" @click="next('CostList')">
         <span>明细</span>
@@ -83,6 +83,15 @@ export default {
     return {
       showCalendar: false,
       activeItem: ''
+    }
+  },
+  watch: {
+    'communicationData.budgetAmount': {
+      handler (newVal, oldVal) {
+        const { totalMoney, totalNum } = newVal
+        this.communicationData.budgetAmount.average = isNaN(totalMoney) || isNaN(totalNum) || !totalMoney || !totalNum ? 0 : +totalMoney / +totalNum
+      },
+      deep: true
     }
   },
   methods: {
