@@ -1,6 +1,5 @@
 import axios from '../../config/axios'
 import * as apis from '../../config/apis'
-import { wxConfig, wxUrl } from "../../config";
 
 export default {
   namespaced: true,

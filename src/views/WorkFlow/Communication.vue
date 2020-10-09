@@ -7,7 +7,7 @@
       </div>
       <div class="item">
         <span>YCN招待人员姓名</span>
-        <el-input class="input-layout input-rlt" size="mini" v-model="communicationData.YCNPersonName"></el-input>
+        <el-input class="input-layout input-rlt" size="mini" :disabled="true" v-model="communicationData.YCNPersonName"></el-input>
       </div>
       <div class="item" @click="next('FreeContent')">
         <span>交际费内容</span>
@@ -76,7 +76,8 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   computed: {
     ...mapState({
-      communicationData: state => state.Communication.communicationData
+      communicationData: state => state.Communication.communicationData,
+      currentUser: state => state.User.currentUser
     })
   },
   data () {
@@ -128,6 +129,9 @@ export default {
     }
   },
   mounted () {
+  },
+  created () {
+    this.updateCommunicationData({ YCNPersonName: this.currentUser ? this.currentUser['NameForLocal'] : ''})
   }
 }
 </script>
