@@ -71,7 +71,7 @@ export default {
     },
     choiceDepartment (item, index) {
       this.activeId = item.Title
-      this.updateCommunicationData({ department: this.departmentList[index].Title })
+      this.updateCommunicationData({ department: item.Title })
       this.$router.back()
     }
   }

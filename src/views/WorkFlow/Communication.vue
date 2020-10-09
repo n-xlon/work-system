@@ -1,9 +1,10 @@
 <template>
   <div class="communication">
     <div class="list">
-      <div class="item" @click="next('Department')">
+      <div class="item">
         <span>所属部门</span>
-        <i class="arrow el-icon-arrow-right"></i>
+        <el-input class="input-layout input-rlt" size="mini" :disabled="true" v-model="communicationData.department"></el-input>
+<!--        <i class="arrow el-icon-arrow-right"></i>-->
       </div>
       <div class="item">
         <span>YCN招待人员姓名</span>
