@@ -16,7 +16,7 @@ module.exports = {
     proxy: {
       '/api': {
         target: 'https://appsrv.yokogawachina.com:8585/bpm',
-        // changeOrigin: true,
+        changeOrigin: true,
         secure: true
       }
     }

@@ -16,7 +16,22 @@ export default {
   actions: {
     loginIn ({ commit }, payload) {
       return new Promise((resolve, reject) => {
-        axios.post(apis.LOGIN, payload).then(res => {
+        const params = location.href.match(/[?|&]code\\=(\w+)/)
+        axios.post(apis.LOGIN, { code: params ? params[1] : '' }).then(res => {
+          const { SessionKey, EmployeeInfo } = res
+          localStorage.setItem('userInfo', JSON.stringify({ SessionKey, EmployeeInfo }))
+          commit('updateUserInfo', { SessionKey, EmployeeInfo })
+          resolve(res)
+        }).catch(e => {
+          reject(e)
+        })
+      })
+    },
+    login3 ({ commit }, payload) {
+      return new Promise((resolve, reject) => {
+        const params = location.href.match(/[?|&]code\\=(\w+)/)
+        axios.get(apis.LOGIN3, { code: params ? params[1] : '' }).then(res => {
+          console.log(res)
           const { SessionKey, EmployeeInfo } = res
           localStorage.setItem('userInfo', JSON.stringify({ SessionKey, EmployeeInfo }))
           commit('updateUserInfo', { SessionKey, EmployeeInfo })

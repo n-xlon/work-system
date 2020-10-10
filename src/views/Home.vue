@@ -13,6 +13,7 @@
           <i class="right-arrow el-icon-arrow-right"></i>
         </li>
       </ul>
+      <el-button plain @click="handleTestCode">Test Code</el-button>
     </div>
   </div>
 </template>
@@ -44,6 +45,9 @@ export default {
     ...mapActions('TodoList', [
       'getTodoList'
     ]),
+    ...mapActions('User', [
+      'login3'
+    ]),
     handleWorkFlow (item) {
       this.$router.push(item.path)
     },
@@ -53,6 +57,9 @@ export default {
         this.taskLen = list.length
       } catch (e) {
       }
+    },
+    handleTestCode () {
+      this.login3()
     }
   },
   created () {

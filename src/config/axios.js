@@ -34,8 +34,8 @@ service.interceptors.response.use(response => {
   if (status === 403) {
     if ('ErrorCode' in data && [1001, 1002, 1003].includes(data.ErrorCode)) {
       localStorage.removeItem('userInfo')
-      window.$_toast({ props: { message: data.ErrorMessage, duation: 3000 } })
-      window.vm.$router.push('/login')
+      window.$_toast({ props: {message: data.ErrorMessage, duation: 3000}})
+      // window.vm.$router.push('/login')
     }
   } else {
     if ('ErrorCode' in data && 'ErrorMessage' in data) {

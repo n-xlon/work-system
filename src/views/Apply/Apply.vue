@@ -1,16 +1,19 @@
 <template>
   <div class="my-apply">
-    <div class="apply-list" v-for="(item, index) in list" :key="index">
-      <div class="item" @click="checkDetails(item)">
-        <span class="apply-name">{{item.WFDefinitionName}}</span>
-        <span :class="['apply-status', getApplyStatusStyle(item.Status)]">{{item.Status}}</span>
-        <i :class="['arrow', 'el-icon-arrow-right', {'is-open': item.isChecked}]"></i>
+    <template v-if="list.length">
+      <div class="apply-list" v-for="(item, index) in list" :key="index">
+        <div class="item" @click="checkDetails(item)">
+          <span class="apply-name">{{item.WFDefinitionName}}</span>
+          <span :class="['apply-status', getApplyStatusStyle(item.Status)]">{{item.Status}}</span>
+          <i :class="['arrow', 'el-icon-arrow-right', {'is-open': item.isChecked}]"></i>
+        </div>
+        <div class="apply-details" v-if="item.isChecked">
+          <div class="list"><span>申请时间：{{item.Created}}</span><span>申请金额（元）：{{item.Amount}}</span></div>
+          <div class="list"><span>审批意见：{{item.Status}}</span></div>
+        </div>
       </div>
-      <div class="apply-details" v-if="item.isChecked">
-        <div class="list"><span>申请时间：{{item.Created}}</span><span>申请金额（元）：{{item.Amount}}</span></div>
-        <div class="list"><span>审批意见：{{item.Status}}</span></div>
-      </div>
-    </div>
+    </template>
+    <span class="no-data" v-else>暂无数据</span>
   </div>
 </template>
 
@@ -148,6 +151,13 @@ export default {
           }
         }
       }
+    }
+    .no-data {
+      display: inline-block;
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 </style>

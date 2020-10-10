@@ -61,6 +61,8 @@ export default {
   },
   created () {
     this.flows = this.backUpFlows
+    this.activeItem = this.backUpFlows.map(it => it.id)
+    console.log(this.backUpFlows, this.activeItem)
   },
   methods: {
     handleWorkFlows (id) {

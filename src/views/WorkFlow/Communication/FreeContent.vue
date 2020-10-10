@@ -1,10 +1,10 @@
 <template>
   <div class="free_content">
     <ul class="col_list">
-      <li class="col_item" v-for="it in list" :key="it.id" @click="choiceFree(it)">
+      <li class="col_item" v-for="it in list" :key="it.id" @click.self="choiceFree(it)">
         <span>{{ it.text }}</span>
         <i class="selected el-icon-check" v-if="selectItem.includes(it.id)"></i>
-        <el-input class="input-text-area input-rlt" v-model="text" type="textarea" @change="updateData" v-if="it.id === 3 && selectItem.includes(it.id)"></el-input>
+        <el-input class="input-text-area input-rlt" @click.stop v-model="text" type="textarea" @change="updateData" v-if="it.id === 3 && selectItem.includes(it.id)"></el-input>
       </li>
     </ul>
   </div>
@@ -41,7 +41,6 @@ export default {
       'updateCommunicationData'
     ]),
     choiceFree (item) {
-      console.log(item, this.selectItem)
       if (this.selectItem.includes(item.id)) {
         const index = this.selectItem.findIndex(it => it === item.id)
         this.selectItem.splice(index, 1)
@@ -49,7 +48,7 @@ export default {
         this.selectItem.push(item.id)
       }
       const values = this.list.filter(it => this.selectItem.includes(it.id)).map(item => item.value)
-      this.updateCommunicationData({ content: values, otherText: this.text })
+      this.updateCommunicationData({ content: values, otherText: this.text, budgetAmount: { ...this.communicationData.budgetAmount, details: values.map(it => ({ category: it, amount: '', peopleNumber: '', perCapitalAmount: '' })) } })
     },
     updateData () {
       this.updateCommunicationData({ otherText: this.text })
