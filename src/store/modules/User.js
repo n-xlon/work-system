@@ -16,7 +16,7 @@ export default {
   actions: {
     loginIn ({ commit }, payload) {
       return new Promise((resolve, reject) => {
-        const params = location.href.match(/[?|&]code\\=(\w+)/)
+        const params = location.href.match(/[?|&]code=(\w+)/)
         axios.post(apis.LOGIN, { code: params ? params[1] : '' }).then(res => {
           const { SessionKey, EmployeeInfo } = res
           localStorage.setItem('userInfo', JSON.stringify({ SessionKey, EmployeeInfo }))
@@ -29,7 +29,7 @@ export default {
     },
     login3 ({ commit }, payload) {
       return new Promise((resolve, reject) => {
-        const params = location.href.match(/[?|&]code\\=(\w+)/)
+        const params = location.href.match(/[?|&]code=(\w+)/)
         axios.get(`${apis.LOGIN3}?code=${params ? params[1] : ''}`).then(res => {
           console.log(res)
           const { SessionKey, EmployeeInfo } = res
