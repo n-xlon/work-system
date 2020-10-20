@@ -48,10 +48,9 @@ export default {
     },
     jumpToAuthority () {
       const dom = document.createElement('a')
-      dom.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wwc8c054f48a782ad6&redirect_uri=www.ccodding.top%3a2000&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect'
-      document.body.appendChild(dom)
+      dom.href = 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect?appid=wwc8c054f48a782ad6&agentid=1000017&redirect_uri=www.ccodding.top%3a2000&state=STATE'
+      dom.style.display = 'none'
       dom.click()
-      document.body.removeChild(dom)
     },
     getUserList (_, payload) {
       return new Promise((resolve, reject) => {
