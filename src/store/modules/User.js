@@ -48,7 +48,7 @@ export default {
     },
     jumpToAuthority () {
       const dom = document.createElement('a')
-      dom.href = 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect?appid=wwc8c054f48a782ad6&agentid=1000017&redirect_uri=www.ccodding.top%3a2000&state=STATE'
+      dom.href = 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect?appid=wwc8c054f48a782ad6&agentid=1000017&redirect_uri=http%3a%2f%2fwww.ccodding.top%3a2000&state=STATE'
       dom.style.display = 'none'
       dom.click()
     },

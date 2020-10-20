@@ -13,7 +13,7 @@
           <i class="right-arrow el-icon-arrow-right"></i>
         </li>
       </ul>
-      <el-button plain @click="handleTestCode">Test Code</el-button>
+<!--      <el-button plain @click="handleTestCode">Test Code</el-button>-->
     </div>
   </div>
 </template>
