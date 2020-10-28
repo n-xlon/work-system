@@ -2,7 +2,7 @@
   <div class="communication">
     <div class="list">
       <div class="item">
-        <span>所属部门</span>
+        <span>所属部门预算编号</span>
         <el-input class="input-layout input-rlt" size="mini" :disabled="true" v-model="communicationData.department"></el-input>
 <!--        <i class="arrow el-icon-arrow-right"></i>-->
       </div>
@@ -40,12 +40,29 @@
         <i class="arrow el-icon-arrow-right"></i>
       </div>
       <div class="item">
+        <span>申请所属类型</span>
+        <el-radio-group :disabled="true" v-model="communicationData.participantsInfo.requestType">
+          <el-radio class="area-item" :label="item.label" v-for="item in requestTypeOptions" :key="item.value">{{item.label}}</el-radio>
+        </el-radio-group>
+      </div>
+      <div class="item">
         <span>实际场所</span>
-        <el-input class="input-layout input-rlt" size="mini" v-model="communicationData.participantsInfo.correntArea"></el-input>
+        <el-radio-group class="area-list" v-model="communicationData.participantsInfo.correntArea">
+          <el-radio class="area-item" :label="item.label" v-for="item in realAreas" :key="item.value">{{item.label}}</el-radio>
+        </el-radio-group>
+        <el-input class="area-input input-layout input-rlt" type="text" :disabled="communicationData.participantsInfo.correntArea === '国内'" v-model="communicationData.participantsInfo.overseasPlace" size="mini"></el-input>
       </div>
       <div class="item">
         <span>实行目的与理由</span>
-        <el-input class="input-layout input-rlt" size="mini" v-model="communicationData.participantsInfo.reason"></el-input>
+<!--        <el-input class="input-layout input-rlt" size="mini" v-model="communicationData.participantsInfo.reason"></el-input>-->
+        <el-select v-model="communicationData.participantsInfo.reason" placeholder="请选择">
+          <el-option
+            v-for="item in reasonOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
       </div>
     </div>
     <p class="sub-title"><img src="../../assets/money@2x.png" alt=""><span class="name">预算金额</span></p>
@@ -60,7 +77,7 @@
       </div>
       <div class="item">
         <span>人均 (元)</span>
-        <el-input :disabled="true" class="input-layout input-rlt" type="number" size="mini" v-model="communicationData.budgetAmount.average"></el-input>
+        <el-input :disabled="true" class="input-layout input-rlt" type="number" size="mini" v-model="communicationData.budgetAmount.average.toFixed(2)"></el-input>
       </div>
       <div class="item" @click="next('CostList')">
         <span>明细</span>
@@ -84,7 +101,23 @@ export default {
   data () {
     return {
       showCalendar: false,
-      activeItem: ''
+      activeItem: '',
+      realAreas: [
+        { label: '国内', value: '国内' },
+        { label: '海外', value: '海外' }
+      ],
+      areaValue: '',
+      reasonOptions: [
+        { value: '业务交流', label: '业务交流' },
+        { value: '参观与考察', label: '参观与考察' },
+        { value: '会议参加', label: '会议参加' },
+        { value: '节日问候', label: '节日问候' },
+        { value: '公司周年/年会庆贺', label: '公司周年/年会庆贺' }
+      ],
+      requestTypeOptions: [
+        { label: '事前批准', value: '事前批准' },
+        { label: '事后批准', value: '事后批准' }
+      ]
     }
   },
   watch: {
@@ -117,7 +150,11 @@ export default {
     selectDate (date) {
       const info = this.communicationData.participantsInfo
       if (!this.activeItem) return
-      this.updateCommunicationData({ participantsInfo: { ...info, [this.activeItem]: date } })
+      if (this.activeItem === 'endTime') {
+        this.updateCommunicationData({ participantsInfo: { ...info, [this.activeItem]: date, requestType: new Date(date).getTime() >= Date.now() ? '事前批准' : '事后批准' } })
+      } else {
+        this.updateCommunicationData({ participantsInfo: { ...info, [this.activeItem]: date } })
+      }
       this.showCalendar = false
     },
     choseStartTime () {
@@ -160,6 +197,12 @@ export default {
         width: calc(100% - 3rem);
         text-align: right;
       }
+
+      .area-input {
+        width: 3.5rem;
+        border: 1px solid #dddddd;
+        border-radius: 2px;
+      }
     }
     .sub-title {
       width: 100%;
@@ -193,6 +236,16 @@ export default {
       background: #004F9A;
       border: none;
       border-radius: 0;
+    }
+    .area-list {
+      .area-item {
+        margin-left: .5rem;
+        margin-right: 0;
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
     }
   }
 </style>

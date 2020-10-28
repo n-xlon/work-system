@@ -13,8 +13,10 @@ const initState = {
       person: [],
       startTime: '',
       endTime: '',
-      correntArea: '',
-      reason: ''
+      correntArea: '国内',
+      reason: '',
+      OverseasPlace: '',
+      requestType: ''
     },
     budgetAmount: {
       totalMoney: '',
@@ -64,13 +66,13 @@ export default {
           EndDate: participantsInfo.endTime || '',
           Purpose: participantsInfo.reason,
           Place: participantsInfo.correntArea,
-          OverseasPlace: '',
+          OverseasPlace: participantsInfo.OverseasPlace,
           Amount: budgetAmount.totalMoney,
           NumberOfPeople: budgetAmount.totalNum,
           PerCapital: budgetAmount.average,
           DetailOfBudget: JSON.stringify(budgetAmount.details),
           Remark: '',
-          RequestType: ''
+          RequestType: participantsInfo.requestType
         }
         axios.post(apis.SUBMIT_COMMUNICATION_DATA, data).then(res => {
           const { data } = res
