@@ -48,10 +48,10 @@ export default {
         let data = {
           ApplicantName: currentUser.NameForLocal,
           PersonnelNumberOfApplicant: currentUser.Title,
-          Department: department,
+          Department: currentUser.OrganizationalUnit,
           PersonnelNumberOfUsher: '1',
           UsherName: YCNPersonName,
-          Role: '',
+          Role: currentUser.Role || '',
           OtherUsher: '',
           GroupAttendant: '',
           Category: content.join(','),
