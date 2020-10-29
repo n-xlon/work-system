@@ -67,9 +67,9 @@ export default {
           Purpose: participantsInfo.reason,
           Place: participantsInfo.correntArea,
           OverseasPlace: participantsInfo.OverseasPlace,
-          Amount: budgetAmount.totalMoney,
-          NumberOfPeople: budgetAmount.totalNum,
-          PerCapital: budgetAmount.average,
+          Amount: +budgetAmount.totalMoney,
+          NumberOfPeople: +budgetAmount.totalNum,
+          PerCapital: +budgetAmount.average,
           DetailOfBudget: JSON.stringify(budgetAmount.details),
           Remark: '',
           RequestType: participantsInfo.requestType

@@ -50,7 +50,9 @@ export default {
     },
     getAverageMoneny (index) {
       const { amount, peopleNumber } = this.costList[index]
-      return !amount || !peopleNumber ? 0 : (+amount / peopleNumber).toFixed(2)
+      let avag = !amount || !peopleNumber ? 0 : (+amount / peopleNumber).toFixed(2)
+      this.costList[index].perCapitalAmount = avag
+      return avag
     }
   }
 }
