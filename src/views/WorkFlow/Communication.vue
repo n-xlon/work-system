@@ -50,7 +50,7 @@
         <el-radio-group class="area-list" v-model="communicationData.participantsInfo.correntArea">
           <el-radio class="area-item" :label="item.label" v-for="item in realAreas" :key="item.value">{{item.label}}</el-radio>
         </el-radio-group>
-        <el-input class="area-input input-layout input-rlt" type="text" :disabled="communicationData.participantsInfo.correntArea === '国内'" v-model="communicationData.participantsInfo.overseasPlace" size="mini"></el-input>
+        <el-input class="area-input input-layout input-rlt" type="text" :disabled="communicationData.participantsInfo.correntArea === '国内'" v-model="communicationData.participantsInfo.OverseasPlace" size="mini"></el-input>
       </div>
       <div class="item">
         <span>实行目的与理由</span>
