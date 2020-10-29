@@ -53,7 +53,7 @@ export default {
     position: absolute;
     bottom: 0;
     .wh_content_all {
-      background-color: #ffffff;
+      background-color: #ffffff !important;
       .wh_top_changge > li {
         color: #000;
         .wh_jiantou1 {
