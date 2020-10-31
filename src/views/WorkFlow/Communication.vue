@@ -16,7 +16,7 @@
       </div>
       <div class="item">
         <span>Yokogawa集团陪同人员</span>
-        <el-input class="input-layout input-rlt" size="mini" :disabled="true" v-model="communicationData.GroupAttendant"></el-input>
+        <el-input class="input-layout input-rlt" size="mini" v-model="communicationData.GroupAttendant"></el-input>
       </div>
       <div class="item" @click="next('FreeContent')">
         <span>交际费内容</span>
