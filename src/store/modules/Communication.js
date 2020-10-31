@@ -5,6 +5,8 @@ const initState = {
   communicationData: {
     department: '',
     YCNPersonName: '',
+    OtherUsher: '',
+    GroupAttendant: '',
     content: [],
     otherText: '',
     participantsInfo: {
@@ -43,7 +45,7 @@ export default {
   actions: {
     submitCommunicationData ({ state, rootState }, payload) {
       return new Promise((resolve, reject) => {
-        const { department, YCNPersonName, content, otherText, participantsInfo, budgetAmount } = state.communicationData
+        const { department, YCNPersonName, OtherUsher, GroupAttendant, content, otherText, participantsInfo, budgetAmount } = state.communicationData
         const { currentUser } = rootState.User
         let data = {
           ApplicantName: currentUser.NameForLocal,
@@ -52,8 +54,8 @@ export default {
           PersonnelNumberOfUsher: '1',
           UsherName: YCNPersonName,
           Role: currentUser.Role || '',
-          OtherUsher: '',
-          GroupAttendant: '',
+          OtherUsher: OtherUsher,
+          GroupAttendant: GroupAttendant,
           Category: content.join(','),
           OtherCategroyDescription: otherText,
           Company: participantsInfo.bussiness,
