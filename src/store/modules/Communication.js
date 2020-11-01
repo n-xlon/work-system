@@ -51,7 +51,7 @@ export default {
           ApplicantName: currentUser.NameForLocal,
           PersonnelNumberOfApplicant: currentUser.Title,
           Department: currentUser.OrganizationalUnit,
-          PersonnelNumberOfUsher: '1',
+          PersonnelNumberOfUsher: currentUser.Title,
           UsherName: YCNPersonName,
           Role: currentUser.Role || '',
           OtherUsher: OtherUsher,

@@ -3,12 +3,12 @@
     <div class="list">
       <div class="item">
         <span>所属部门预算编号</span>
-        <el-input class="input-layout input-rlt" size="mini" :disabled="true" v-model="currentUser.OrganizationalUnit"></el-input>
+        <el-input class="input-layout input-rlt disabled-text" size="mini" :disabled="true" v-model="currentUser.OrganizationalUnit"></el-input>
 <!--        <i class="arrow el-icon-arrow-right"></i>-->
       </div>
       <div class="item">
         <span>YCN招待人员姓名</span>
-        <el-input class="input-layout input-rlt" size="mini" :disabled="true" v-model="communicationData.YCNPersonName"></el-input>
+        <el-input class="input-layout input-rlt disabled-text" size="mini" :disabled="true" v-model="communicationData.YCNPersonName"></el-input>
       </div>
       <div class="item">
         <span>YCN陪同人员姓名</span>
@@ -85,7 +85,7 @@
       </div>
       <div class="item">
         <span>人均 (元)</span>
-        <el-input :disabled="true" class="input-layout input-rlt" type="number" size="mini" v-model="communicationData.budgetAmount.average.toFixed(2)"></el-input>
+        <el-input :disabled="true" class="input-layout input-rlt disabled-text" type="number" size="mini" v-model="communicationData.budgetAmount.average.toFixed(2)"></el-input>
       </div>
       <div class="item" @click="next('CostList')">
         <span>明细</span>
