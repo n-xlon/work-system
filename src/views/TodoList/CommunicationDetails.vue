@@ -79,7 +79,7 @@
           <el-input type="textarea" v-model="comment"></el-input>
         </div>
       </div>
-      <el-button class="approval-btn" type="primary" @click="handleApproval">提交</el-button>
+      <el-button class="approval-btn" type="primary" :loading="loadingApply" @click="handleApproval">提交</el-button>
     </template>
   </div>
 </template>
@@ -111,7 +111,8 @@ export default {
     return {
       result: 1,
       comment: '',
-      details: {}
+      details: {},
+      loadingApply: false
     }
   },
   methods: {
@@ -120,12 +121,17 @@ export default {
       'getCommunicateDetails'
     ]),
     handleApproval () {
+      this.loadingApply = true
       this.approvalTask({
         taskId: this.task.TaskId,
         result: !this.result ? '批准' : '拒绝',
         comment: this.comment
       }).then(data => {
+        this.loadingApply = false
+        this.$_toast({ props: {message: '提交成功', duation: 3000}})
         this.$emit('back')
+      }).catch(() => {
+        this.loadingApply = false
       })
     },
     async initDetails () {
