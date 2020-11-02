@@ -31,7 +31,7 @@
       </div>
       <div class="item">
         <span>参加人员数</span>
-        <el-input class="input-layout input-rlt" size="mini" v-model="communicationData.participantsInfo.num"></el-input>
+        <el-input class="input-layout input-rlt" type="number" size="mini" v-model="communicationData.participantsInfo.num"></el-input>
       </div>
       <div class="item" @click="next('Participants')">
         <span>参与人员</span>

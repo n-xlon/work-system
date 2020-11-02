@@ -63,7 +63,7 @@ export default {
           ClientName: participantsInfo.person.length ? participantsInfo.person[0].name : '',
           ClientDepartment: participantsInfo.person.length ? participantsInfo.person[0].company : '',
           ClientPosition: participantsInfo.person.length ? participantsInfo.person[0].position : '',
-          MoreClients: `${JSON.stringify(participantsInfo.person).replace(/\"/g,"'")}`,
+          MoreClients: `${JSON.stringify(participantsInfo.person).replace(/\"/g,"\"")}`,
           StartDate: participantsInfo.startTime || '',
           EndDate: participantsInfo.endTime || '',
           Purpose: participantsInfo.reason,
@@ -72,7 +72,7 @@ export default {
           Amount: +budgetAmount.totalMoney,
           NumberOfPeople: +budgetAmount.totalNum,
           PerCapital: +budgetAmount.average,
-          DetailOfBudget: `${JSON.stringify(budgetAmount.details).replace(/\"/g,"'")}`,
+          DetailOfBudget: `${JSON.stringify(budgetAmount.details).replace(/\"/g,"\"")}`,
           Remark: '',
           RequestType: participantsInfo.requestType
         }
