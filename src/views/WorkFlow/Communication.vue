@@ -92,7 +92,7 @@
         <i class="arrow el-icon-arrow-right"></i>
       </div>
     </div>
-    <el-button class="submit-btn" @click="submit" type="primary">提交</el-button>
+    <el-button class="submit-btn" @click="submit" :loading="loadingSubmit" type="primary">提交</el-button>
     <calendar :show="showCalendar" @chose="selectDate" @close="showCalendar = false"/>
   </div>
 </template>
@@ -125,7 +125,8 @@ export default {
       requestTypeOptions: [
         { label: '事前批准', value: '事前批准' },
         { label: '事后批准', value: '事后批准' }
-      ]
+      ],
+      loadingSubmit: false
     }
   },
   watch: {
@@ -154,10 +155,14 @@ export default {
         this.$_toast({ props: {message: '结束时间要大于开始时间', duation: 3000}})
         return
       }
+      this.loadingSubmit = true
       this.submitCommunicationData().then(res => {
+        this.loadingSubmit = false
         this.resetCommunication()
         this.$router.push({ path: '/home' })
         this.$_toast({ props: {message: '提交成功', duation: 3000}})
+      }).catch(() => {
+        this.loadingSubmit = false
       })
     },
     selectDate (date) {
