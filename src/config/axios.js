@@ -13,7 +13,7 @@ const service = axios.create({
 
 service.interceptors.request.use(config => {
   const SessionKey = store.state.User.SessionKey
-  config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+  config.headers['Content-Type'] = 'application/json'
   if (!config.headers.SessionKey) {
     config.headers.SessionKey = SessionKey
   }

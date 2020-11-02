@@ -149,6 +149,11 @@ export default {
       this.$router.push({ name })
     },
     submit () {
+      let { startTime, endTime } = this.communicationData.participantsInfo
+      if (new Date(endTime).getTime() < new Date(startTime).getTime()) {
+        this.$_toast({ props: {message: '结束时间要大于开始时间', duation: 3000}})
+        return
+      }
       this.submitCommunicationData().then(res => {
         this.resetCommunication()
         this.$router.push({ path: '/home' })
