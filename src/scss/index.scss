@@ -3,5 +3,7 @@
   font-size: .4rem;
 }
 .disabled-text {
-  color: #232323 !important;
+  input {
+    color: #232323 !important;
+  }
 }
