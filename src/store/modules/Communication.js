@@ -76,7 +76,11 @@ export default {
           Remark: '',
           RequestType: participantsInfo.requestType
         }
-        axios.post(apis.SUBMIT_COMMUNICATION_DATA, data).then(res => {
+        axios.post(apis.SUBMIT_COMMUNICATION_DATA, data, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(res => {
           const { data } = res
           resolve(data)
         }).catch(e => {
