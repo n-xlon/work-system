@@ -69,6 +69,7 @@ export default {
     width: 100%;
     height: 100%;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
     .tasks {
       width: 100%;
       height: 1.2rem;
