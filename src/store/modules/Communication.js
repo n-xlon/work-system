@@ -50,7 +50,7 @@ export default {
         let data = {
           ApplicantName: currentUser.NameForLocal,
           PersonnelNumberOfApplicant: currentUser.Title,
-          Department: currentUser.OrganizationalUnit,
+          Department: currentUser.CostCenterForWorkFor ? currentUser.CostCenterForWorkFor.slice(currentUser.CostCenterForWorkFor.length - 4) : '',
           PersonnelNumberOfUsher: currentUser.Title,
           UsherName: YCNPersonName,
           Role: currentUser.Role || '',

@@ -7,11 +7,12 @@
 <!--        <i class="arrow el-icon-arrow-right"></i>-->
       </div>
       <div class="item">
-        <span>YCN招待人员姓名</span>
-        <el-input class="input-layout input-rlt disabled-text" size="mini" :disabled="true" v-model="communicationData.YCNPersonName"></el-input>
+        <span>YCN招待人员</span>
+        <el-input class="input-layout input-rlt disabled-text" size="mini" :disabled="true" v-model="currentUser.Title"></el-input>
+        <span>{{communicationData.YCNPersonName}}</span>
       </div>
       <div class="item">
-        <span>YCN陪同人员姓名</span>
+        <span>YCN陪同人员</span>
         <el-input class="input-layout input-rlt" size="mini" v-model="communicationData.OtherUsher"></el-input>
       </div>
       <div class="item">
@@ -55,7 +56,7 @@
       </div>
       <div class="item">
         <span>实际场所</span>
-        <el-radio-group class="area-list" v-model="communicationData.participantsInfo.correntArea">
+        <el-radio-group class="area-list" v-model="communicationData.participantsInfo.correntArea" @change="changeCorrentArea">
           <el-radio class="area-item" :label="item.label" v-for="item in realAreas" :key="item.value">{{item.label}}</el-radio>
         </el-radio-group>
         <el-input class="area-input input-layout input-rlt" type="text" :disabled="communicationData.participantsInfo.correntArea === '国内'" v-model="communicationData.participantsInfo.OverseasPlace" size="mini"></el-input>
@@ -76,7 +77,7 @@
     <p class="sub-title"><img src="../../assets/money@2x.png" alt=""><span class="name">预算金额</span></p>
     <div class="list">
       <div class="item">
-        <span>总结金额 (元)</span>
+        <span>总计金额 (元)</span>
         <el-input class="input-layout input-rlt" type="number" size="mini" v-model="communicationData.budgetAmount.totalMoney"></el-input>
       </div>
       <div class="item">
@@ -150,11 +151,48 @@ export default {
       this.$router.push({ name })
     },
     submit () {
-      let { startTime, endTime } = this.communicationData.participantsInfo
+      let { startTime, endTime, bussiness, num, person, correntArea, requestType } = this.communicationData.participantsInfo
+      let { totalNum, average, totalMoney } = this.communicationData.budgetAmount
+      let message = ''
+      if (!bussiness) {
+        message = '公司名称不能为空'
+      }
+      if (!num) {
+        message = '参加人员数不能为空'
+      }
+      if (!person.length) {
+        message = '参加人员详情不能为空'
+      }
+      if (person.length !== +num) {
+        message = '参加人员数与人员明细数需一致'
+      }
+      if (!startTime || !endTime) {
+        message = '开始时间或结束时间不能为空'
+      }
       if (new Date(endTime).getTime() < new Date(startTime).getTime()) {
-        this.$_toast({ props: {message: '结束时间要大于开始时间', duation: 3000}})
+        message = '结束时间要大于开始时间'
+      }
+      if (!this.communicationData.content.length) {
+        message = '交际费内容不能为空'
+      }
+      if (correntArea === '国内' && requestType === '事前批准' && +average > 300) {
+        message = '国内交际费事前人均不能超300'
+      }
+      if (correntArea === '国内' && requestType === '事后批准' && +totalMoney > 500) {
+        message = '国内交际费事后总额不能超500'
+      }
+      if (correntArea === '海外' && +average > 600) {
+        message = '海外人均不能超600'
+      }
+      if (+totalNum < +num) {
+        message = '总人数不能小于参加人员数'
+      }
+
+      if (message) {
+        this.$_toast({ props: { message, duation: 3000 } })
         return
       }
+
       this.loadingSubmit = true
       this.submitCommunicationData().then(res => {
         this.loadingSubmit = false
@@ -182,6 +220,11 @@ export default {
     choseEndTime () {
       this.showCalendar = true
       this.activeItem = 'endTime'
+    },
+    changeCorrentArea (val) {
+      if (val === '海外') {
+        this.updateCommunicationData({ participantsInfo: { ...this.communicationData.participantsInfo, requestType: '事前批准' } })
+      }
     }
   },
   mounted () {

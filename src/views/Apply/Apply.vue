@@ -8,7 +8,7 @@
           <i :class="['arrow', 'el-icon-arrow-right', {'is-open': item.isChecked}]"></i>
         </div>
         <div class="apply-details" v-if="item.isChecked">
-          <div class="list"><span>申请时间：{{item.Created}}</span><span>申请金额（元）：{{item.Amount}}</span></div>
+          <div class="list"><span>申请时间：{{item.Created.splice('.')[0]}}</span><span>申请金额（元）：{{item.Amount}}</span></div>
           <div class="list"><span>审批意见：{{item.Status}}</span></div>
         </div>
       </div>

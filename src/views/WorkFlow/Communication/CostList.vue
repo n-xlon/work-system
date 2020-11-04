@@ -1,14 +1,16 @@
 <template>
   <div class="cost_list">
-    <ul class="col_list" v-for="(item, index) in costList" :key="index">
-      <li class="col_item" v-for="it in labels" :key="it.label">
-        <span>{{ it.text }}</span>
-        <el-input :disabled="true" type="number" v-if="it.label === 'perCapitalAmount'" class="input-layout input-rlt" size="mini" :value="getAverageMoneny(index)"></el-input>
-        <el-input v-else :type="it.label === 'category' ? 'text' : 'number'" class="input-layout input-rlt" size="mini" v-model="item[it.label]"></el-input>
-      </li>
-    </ul>
-    <p class="cost_list-add"><i class="el-icon-circle-plus-outline" @click="addCostList"></i></p>
-    <el-button class="submit-btn" type="primary" @click="submitCost">提交</el-button>
+    <template v-if="costList.length">
+      <ul class="col_list" v-for="(item, index) in costList" :key="index">
+        <li class="col_item" v-for="it in labels" :key="it.label">
+          <span>{{ it.text }}</span>
+          <el-input :disabled="true" type="number" v-if="it.label === 'perCapitalAmount'" class="input-layout input-rlt" size="mini" :value="getAverageMoneny(index)"></el-input>
+          <el-input v-else :type="it.label === 'category' ? 'text' : 'number'" class="input-layout input-rlt" size="mini" v-model="item[it.label]"></el-input>
+        </li>
+      </ul>
+      <p class="cost_list-add"><i class="el-icon-circle-plus-outline" @click="addCostList"></i></p>
+      <el-button class="submit-btn" type="primary" @click="submitCost">提交</el-button>
+    </template>
   </div>
 </template>
 
