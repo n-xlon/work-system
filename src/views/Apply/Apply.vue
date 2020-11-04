@@ -42,8 +42,7 @@ export default {
       'getCommunicateDetails'
     ]),
     getCreatedTime (item) {
-      console.log(`${item.Created}`.splice('.'))
-      return item.Created ? `${item.Created}`.splice('.')[0] : ''
+      return item.Created ? `${item.Created}`.split('.')[0] : ''
     },
     getApplyStatusStyle (status) {
       if (status === '同意') {
