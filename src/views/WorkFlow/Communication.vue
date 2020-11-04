@@ -152,43 +152,37 @@ export default {
     },
     submit () {
       let { startTime, endTime, bussiness, num, person, correntArea, requestType, reason } = this.communicationData.participantsInfo
-      let { totalNum, average, totalMoney } = this.communicationData.budgetAmount
+      let { totalNum, average, totalMoney, details } = this.communicationData.budgetAmount
       let message = ''
-      if (!bussiness) {
-        message = '公司名称不能为空'
-      }
-      if (!num) {
-        message = '参加人员数不能为空'
-      }
-      if (!person.length) {
-        message = '参加人员详情不能为空'
-      }
-      if (person.length !== +num) {
-        message = '参加人员数与人员明细数需一致'
-      }
-      if (!startTime || !endTime) {
-        message = '开始时间或结束时间不能为空'
-      }
-      if (new Date(endTime).getTime() < new Date(startTime).getTime()) {
-        message = '结束时间要大于开始时间'
-      }
       if (!this.communicationData.content.length) {
         message = '交际费内容不能为空'
       }
-      if (totalMoney === '') {
+      if (!bussiness) {
+        message = '公司名称不能为空'
+      } else if (!num) {
+        message = '参加人员数不能为空'
+      } else if (!person.length) {
+        message = '参加人员详情不能为空'
+      } else if (person.length !== +num) {
+        message = '参加人员数与人员明细数需一致'
+      } else if (!startTime || !endTime) {
+        message = '开始时间或结束时间不能为空'
+      } else if (new Date(endTime).getTime() < new Date(startTime).getTime()) {
+        message = '结束时间要大于开始时间'
+      } else if (totalMoney === '') {
         message = '总计金额不能为空'
-      }
-      if (correntArea === '国内' && requestType === '事前批准' && +average > 300) {
+      } else if (correntArea === '国内' && requestType === '事前批准' && +average > 300) {
         message = '国内交际费事前人均不能超300'
-      }
-      if (correntArea === '国内' && requestType === '事后批准' && +totalMoney > 500) {
+      } else if (correntArea === '国内' && requestType === '事后批准' && +totalMoney > 500) {
         message = '国内交际费事后总额不能超500'
-      }
-      if (correntArea === '海外' && +average > 600) {
+      } else if (correntArea === '海外' && +average > 600) {
         message = '海外人均不能超600'
-      }
-      if (+totalNum < +num) {
+      } else if (+totalNum < +num) {
         message = '总人数不能小于参加人员数'
+      } else if (!details.length) {
+        message = '预算金额明细不能为空'
+      } else if (new Date(endTime).getTime() - new Date(startTime).getTime() > 1000 * 60 * 60 * 24 * 14) {
+        message = '超过限制天数'
       }
 
       if (message) {
