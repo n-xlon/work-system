@@ -174,6 +174,8 @@ export default {
         message = '结束时间要大于开始时间'
       } else if (totalMoney === '') {
         message = '总计金额不能为空'
+      } else if (correntArea === '海外' && !reason) {
+        message = '实行场所对应的输入信息不能为空'
       } else if (correntArea === '国内' && requestType === '事前批准' && +average > 300) {
         message = '国内交际费事前人均不能超300'
       } else if (correntArea === '国内' && requestType === '事后批准' && +totalMoney > 500) {
