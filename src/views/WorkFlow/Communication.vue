@@ -151,7 +151,7 @@ export default {
       this.$router.push({ name })
     },
     submit () {
-      let { startTime, endTime, bussiness, num, person, correntArea, requestType, reason } = this.communicationData.participantsInfo
+      let { startTime, endTime, bussiness, num, person, correntArea, requestType, OverseasPlace } = this.communicationData.participantsInfo
       let { totalNum, average, totalMoney, details } = this.communicationData.budgetAmount
       let money = details.length ? details.map(item => +item.amount).reduce((prev, mey) => (prev + mey)) : ''
       let message = ''
@@ -174,7 +174,7 @@ export default {
         message = '结束时间要大于开始时间'
       } else if (totalMoney === '') {
         message = '总计金额不能为空'
-      } else if (correntArea === '海外' && !reason) {
+      } else if (correntArea === '海外' && !OverseasPlace) {
         message = '实行场所对应的输入信息不能为空'
       } else if (correntArea === '国内' && requestType === '事前批准' && +average > 300) {
         message = '国内交际费事前人均不能超300'
