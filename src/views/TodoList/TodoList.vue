@@ -23,14 +23,15 @@ export default {
     CommunicationDetails
   },
   computed: {
-    ...mapState('TodoList', {
-      showTodoListDetails: state => state.showTodoListDetails
-    })
+    // ...mapState('TodoList', {
+    //   showTodoListDetails: state => state.showTodoListDetails
+    // })
   },
   data () {
     return {
       list: [],
-      currentTask: {}
+      currentTask: {},
+      showTodoListDetails: false
     }
   },
   created () {
@@ -45,7 +46,7 @@ export default {
     ]),
     handleTask (task) {
       this.currentTask = task
-      this.updateType(true)
+      this.showTodoListDetails = true
     },
     getTaskList () {
       const loadingTodoList = this.$loading({background: 'transparent'})
@@ -57,7 +58,7 @@ export default {
       })
     },
     goBack () {
-      this.updateType(false)
+      this.showTodoListDetails = false
       this.getTaskList()
     }
   }
