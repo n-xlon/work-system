@@ -181,6 +181,8 @@ export default {
         message = '总人数不能小于参加人员数'
       } else if (!details.length) {
         message = '预算金额明细不能为空'
+      } else if (details.filter(item => !item.amount || !item.peopleNumber).length) {
+        message = '金额明细内容不能存在空值'
       } else if (new Date(endTime).getTime() - new Date(startTime).getTime() > 1000 * 60 * 60 * 24 * 14) {
         message = '超过限制天数'
       }
