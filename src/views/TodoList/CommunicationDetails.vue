@@ -132,6 +132,7 @@ export default {
         this.$emit('back')
       }).catch(() => {
         this.loadingApply = false
+        this.$emit('back')
       })
     },
     async initDetails () {
