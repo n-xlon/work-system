@@ -3,7 +3,7 @@
     <div class="list">
       <div class="item">
         <span>所属部门预算编号</span>
-        <el-input class="input-layout input-rlt disabled-text" size="mini" :disabled="true" v-model="currentUser.OrganizationalUnit"></el-input>
+        <el-input class="input-layout input-rlt disabled-text" size="mini" :disabled="true" :value="currentUser.CostCenterForWorkFor.slice(currentUser.CostCenterForWorkFor.length - 4)"></el-input>
 <!--        <i class="arrow el-icon-arrow-right"></i>-->
       </div>
       <div class="item">
