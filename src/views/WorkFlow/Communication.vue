@@ -165,6 +165,8 @@ export default {
         message = '参加人员详情不能为空'
       } else if (person.length !== +num) {
         message = '参加人员数与人员明细数需一致'
+      } else if (person.filter(item => (!item.name || !item.company || !item.position)).length) {
+        message = '参与人员明细内容不为空'
       } else if (!startTime || !endTime) {
         message = '开始时间或结束时间不能为空'
       } else if (new Date(endTime).getTime() < new Date(startTime).getTime()) {
