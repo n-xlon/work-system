@@ -101,7 +101,7 @@ export default {
   .my-apply {
     overflow: auto;
     height: 100%;
-    -webkit-overflow-scrolling: touch;
+    /*-webkit-overflow-scrolling: touch;*/
     .apply-list {
       border-bottom: 1px solid #EEEEEE;
       &:last-child {
