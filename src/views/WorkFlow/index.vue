@@ -14,5 +14,6 @@ export default {
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
   }
 </style>

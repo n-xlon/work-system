@@ -32,14 +32,14 @@ const initState = {
 export default {
   namespaced: true,
   state: {
-    ...initState
+    ...JSON.parse(JSON.stringify(initState))
   },
   mutations: {
     updateCommunicationData (state, data) {
       state.communicationData = { ...state.communicationData, ...data }
     },
     resetCommunication (state) {
-      state.communicationData = { ...initState.communicationData }
+      state.communicationData = { ...JSON.parse(JSON.stringify(initState.communicationData)) }
     }
   },
   actions: {
