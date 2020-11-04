@@ -31,9 +31,7 @@ export default {
         { text: '人数', label: 'peopleNumber' },
         { text: '人均 (元)', label: 'perCapitalAmount' }
       ],
-      costList: [
-        { category: '', amount: '', peopleNumber: '', perCapitalAmount: '' }
-      ]
+      costList: []
     }
   },
   created () {
