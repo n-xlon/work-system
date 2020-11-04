@@ -157,8 +157,7 @@ export default {
       let message = ''
       if (!this.communicationData.content.length) {
         message = '交际费内容不能为空'
-      }
-      if (!bussiness) {
+      } else if (!bussiness) {
         message = '公司名称不能为空'
       } else if (!num) {
         message = '参加人员数不能为空'
@@ -184,7 +183,7 @@ export default {
         message = '预算金额明细不能为空'
       } else if (+money !== +totalMoney) {
         message = '金额不符'
-      } else if (details.filter(item => !item.amount || !item.peopleNumber).length) {
+      } else if (details.filter(item => (!item.amount || !item.peopleNumber)).length) {
         message = '金额明细内容不能存在空值'
       } else if (new Date(endTime).getTime() - new Date(startTime).getTime() > 1000 * 60 * 60 * 24 * 14) {
         message = '超过限制天数'
