@@ -155,7 +155,7 @@ export default {
       let { totalNum, average, totalMoney, details } = this.communicationData.budgetAmount
       let money = details.map(item => +item.amount).reduce((prev, mey) => (prev + mey))
       let message = ''
-      if (!this.communicationData.content.length) {
+      if (!this.communicationData.content || !this.communicationData.content.length) {
         message = '交际费内容不能为空'
       } else if (!bussiness) {
         message = '公司名称不能为空'
