@@ -158,6 +158,8 @@ export default {
       console.log(this.communicationData.content)
       if (!this.communicationData.content || !this.communicationData.content.length) {
         message = '交际费内容不能为空'
+      } else if (this.communicationData.content.includes('其他') && !this.communicationData.otherText) {
+        message = '交际费内容为其他时，说明不能为空'
       } else if (!bussiness) {
         message = '公司名称不能为空'
       } else if (!num) {
