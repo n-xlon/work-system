@@ -8,7 +8,7 @@
           <i :class="['arrow', 'el-icon-arrow-right', {'is-open': item.isChecked}]"></i>
         </div>
         <div class="apply-details" v-if="item.isChecked">
-          <div class="list"><span>申请时间：{{getCreatedTime}}</span><span>申请金额（元）：{{item.Amount}}</span></div>
+          <div class="list"><span>申请时间：{{getCreatedTime(item)}}</span><span>申请金额（元）：{{item.Amount}}</span></div>
           <div class="list"><span>审批意见：{{item.Status}}</span></div>
         </div>
       </div>
@@ -31,11 +31,6 @@ export default {
   created () {
     this.getApply()
   },
-  computed: {
-    getCreatedTime (item) {
-      return item.Created ? `${item.Created}`.splice('.')[0] : ''
-    }
-  },
   mounted () {
     this.initListenEvent()
   },
@@ -46,6 +41,10 @@ export default {
     ...mapActions('TodoList', [
       'getCommunicateDetails'
     ]),
+    getCreatedTime (item) {
+      console.log(`${item.Created}`.splice('.'))
+      return item.Created ? `${item.Created}`.splice('.')[0] : ''
+    },
     getApplyStatusStyle (status) {
       if (status === '同意') {
         return 'agree'
