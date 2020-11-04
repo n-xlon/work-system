@@ -86,7 +86,7 @@
       </div>
       <div class="item">
         <span>人均 (元)</span>
-        <el-input :disabled="true" class="input-layout input-rlt disabled-text" type="number" size="mini" v-model="communicationData.budgetAmount.average.toFixed(2)"></el-input>
+        <el-input :disabled="true" class="input-layout input-rlt disabled-text" type="number" size="mini" :value="communicationData.budgetAmount.average.toFixed(2)"></el-input>
       </div>
       <div class="item" @click="next('CostList')">
         <span>明细</span>
@@ -151,7 +151,7 @@ export default {
       this.$router.push({ name })
     },
     submit () {
-      let { startTime, endTime, bussiness, num, person, correntArea, requestType } = this.communicationData.participantsInfo
+      let { startTime, endTime, bussiness, num, person, correntArea, requestType, reason } = this.communicationData.participantsInfo
       let { totalNum, average, totalMoney } = this.communicationData.budgetAmount
       let message = ''
       if (!bussiness) {
@@ -174,6 +174,9 @@ export default {
       }
       if (!this.communicationData.content.length) {
         message = '交际费内容不能为空'
+      }
+      if (totalMoney === '') {
+        message = '总计金额不能为空'
       }
       if (correntArea === '国内' && requestType === '事前批准' && +average > 300) {
         message = '国内交际费事前人均不能超300'
