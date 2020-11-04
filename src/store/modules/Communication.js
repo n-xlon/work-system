@@ -39,7 +39,7 @@ export default {
       state.communicationData = { ...state.communicationData, ...data }
     },
     resetCommunication (state) {
-      state.communicationData = { ...initState }
+      state.communicationData = { ...initState.communicationData }
     }
   },
   actions: {
