@@ -103,7 +103,7 @@ export default {
         let content = ''
         moreClients.forEach((item, index) => {
           const { name, company, position } = item
-          content += `${name} ( ${company} ${position} ) \n`
+          content += `${name} ( ${company} ${position} ) \n\r`
         })
         return content
       } else {
@@ -112,7 +112,7 @@ export default {
     },
     getProjects () {
       const DetailOfBudget = JSON.parse(this.details.DetailOfBudget)
-      return DetailOfBudget.map(it => `${it.category}(金额：${it.amount}，人数：${it.peopleNumber}，人均：${it.perCapitalAmount}`).join(',')
+      return DetailOfBudget.map(it => `${it.category}（金额：${it.amount}，人数：${it.peopleNumber}，人均：${it.perCapitalAmount}）`).join(',')
     }
   },
   data () {
