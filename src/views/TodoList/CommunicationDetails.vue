@@ -102,7 +102,7 @@ export default {
       if (moreClients.length) {
         let content = ''
         moreClients.forEach((item, index) => {
-          const { name, company, position } = item[index]
+          const { name, company, position } = item
           content += `${name} ( ${company} ${position} ) \n`
         })
         return content
