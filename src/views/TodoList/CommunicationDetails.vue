@@ -27,7 +27,7 @@
         </div>
         <div class="item">
           <label class="sub-title">人员信息：</label>
-          <span class="content">{{getPersonInfo}}</span>
+          <span class="content" v-html="getPersonInfo"></span>
         </div>
         <div class="item">
           <label class="sub-title">实行时间：</label>
@@ -103,7 +103,7 @@ export default {
         let content = ''
         moreClients.forEach((item, index) => {
           const { name, company, position } = item
-          content += `${name} ( ${company} ${position} ) \n\r`
+          content += `<p>${name} ( ${company} ${position} )</p>`
         })
         return content
       } else {
@@ -112,7 +112,7 @@ export default {
     },
     getProjects () {
       const DetailOfBudget = JSON.parse(this.details.DetailOfBudget)
-      return DetailOfBudget.map(it => `${it.category}（金额：${it.amount}，人数：${it.peopleNumber}，人均：${it.perCapitalAmount}）`).join(',')
+      return DetailOfBudget.map(it => `<p>${it.category}（金额：${it.amount}，人数：${it.peopleNumber}，人均：${it.perCapitalAmount}）</p>`).join(' ')
     }
   },
   data () {
