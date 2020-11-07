@@ -98,13 +98,21 @@ export default {
   computed: {
     getPersonInfo () {
       if (!Object.keys(this.details).length) return ''
-      const [{ name, company, position }] = JSON.parse(this.details.MoreClients)
-      return `${name} ( ${company} ${position} )`
-      // return ''
+      const moreClients = JSON.parse(this.details.MoreClients)
+      if (moreClients.length) {
+        let content = ''
+        moreClients.forEach((item, index) => {
+          const { name, company, position } = item[index]
+          content += `${name} ( ${company} ${position} ) \n`
+        })
+        return content
+      } else {
+        return ''
+      }
     },
     getProjects () {
       const DetailOfBudget = JSON.parse(this.details.DetailOfBudget)
-      return DetailOfBudget.map(it => it.category).join(',')
+      return DetailOfBudget.map(it => `${it.category}(金额：${it.amount}，人数：${it.peopleNumber}，人均：${it.perCapitalAmount}`).join(',')
     }
   },
   data () {

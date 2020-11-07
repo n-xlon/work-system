@@ -215,7 +215,8 @@ export default {
       const info = this.communicationData.participantsInfo
       if (!this.activeItem) return
       if (this.activeItem === 'endTime') {
-        this.updateCommunicationData({ participantsInfo: { ...info, [this.activeItem]: date, requestType: new Date(date).getTime() >= Date.now() ? '事前批准' : '事后批准' } })
+
+        this.updateCommunicationData({ participantsInfo: { ...info, [this.activeItem]: date, requestType: new Date(date).getTime() + 86399999 >= Date.now() ? '事前批准' : '事后批准' } })
       } else {
         this.updateCommunicationData({ participantsInfo: { ...info, [this.activeItem]: date } })
       }
