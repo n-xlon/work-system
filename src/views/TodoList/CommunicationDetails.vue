@@ -62,7 +62,7 @@
         </div>
         <div class="item">
           <label class="sub-title">项目：</label>
-          <span class="content">{{getProjects}}</span>
+          <span class="content" v-html="getProjects"></span>
         </div>
       </div>
       <p class="others"><span>备注：</span>{{details.Remark}}</p>
@@ -185,6 +185,10 @@ export default {
         .content {
           display: inline-block;
           width: calc(100% - 4.2rem);
+          p {
+            margin: 0;
+            padding: 0;
+          }
         }
       }
       label {
