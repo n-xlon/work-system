@@ -14,7 +14,9 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
   <script>
+    wx.hideOptionMenu();
     document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
       WeixinJSBridge.call('hideOptionMenu');
     });
