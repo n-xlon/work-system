@@ -14,4 +14,9 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <script>
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+      WeixinJSBridge.call('hideOptionMenu');
+    });
+  </script>
 </html>
