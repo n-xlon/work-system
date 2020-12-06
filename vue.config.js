@@ -7,7 +7,9 @@ function resolve (dir) {
 module.exports = {
   outputDir: 'dist',
   assetsDir: './src/assets',
+  publicPath: '/JJF/',
   lintOnSave: true,
+  productionSourceMap: false,
   devServer: {
     port: 8082, // 端口号
     host: '0.0.0.0', // 本地和局域网
@@ -15,7 +17,7 @@ module.exports = {
     open: true, // 配置自动启动浏览器
     proxy: {
       '/api': {
-        target: 'https://appsrv.yokogawachina.com:8585/bpm',
+        target: 'https://appsrv.yokogawachina.com:8484/bpm',
         changeOrigin: true,
         secure: true
       }

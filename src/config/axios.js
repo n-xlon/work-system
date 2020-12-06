@@ -3,7 +3,7 @@ import store from '../store'
 
 const options = {}
 if (process.env.NODE_ENV === 'production') {
-  options.baseURL = 'https://appsrv.yokogawachina.com:8585/bpm'
+  options.baseURL = 'https://appsrv.yokogawachina.com:8484/bpm'
 }
 
 const service = axios.create({
@@ -12,6 +12,7 @@ const service = axios.create({
 })
 
 service.interceptors.request.use(config => {
+  // if (new Date().getTime() > 1609343940000) return
   const SessionKey = store.state.User.SessionKey
   config.headers['Content-Type'] = 'application/json'
   if (!config.headers.SessionKey) {
@@ -34,7 +35,7 @@ service.interceptors.response.use(response => {
   if (status === 403) {
     if ('ErrorCode' in data && [1001, 1002, 1003].includes(data.ErrorCode)) {
       localStorage.removeItem('userInfo')
-      window.$_toast({ props: {message: data.ErrorMessage, duation: 3000}})
+      window.$_toast({ props: { message: data.ErrorMessage, duation: 3000 } })
       // window.vm.$router.push('/login')
     }
   } else {
