@@ -49,7 +49,7 @@ export default {
     jumpToAuthority () {
       setTimeout(() => {
         const dom = document.createElement('a')
-        dom.href = 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect?appid=wwc8c054f48a782ad6&agentid=1000017&redirect_uri=http%3a%2f%2fwww.ccodding.top%3a2000&state=STATE'
+        dom.href = 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect?appid=ww0e3b5990580eb448&agentid=1000002&redirect_uri=https%3a%2f%2fwww.ccodding.top%3a2000&state=STATE'
         dom.style.display = 'none'
         dom.click()
       }, 5000)
