@@ -14,19 +14,6 @@ export default {
     }
   },
   actions: {
-    // loginIn ({ commit }, payload) {
-    //   return new Promise((resolve, reject) => {
-    //     const params = location.href.match(/[?|&]code=([^&]*)[&]?/)
-    //     axios.post(apis.LOGIN, { code: '' }).then(res => {
-    //       const { SessionKey, EmployeeInfo } = res
-    //       localStorage.setItem('userInfo', JSON.stringify({ SessionKey, EmployeeInfo }))
-    //       commit('updateUserInfo', { SessionKey, EmployeeInfo })
-    //       resolve(res)
-    //     }).catch(e => {
-    //       reject(e)
-    //     })
-    //   })
-    // },
     loginIn ({ commit, dispatch }, payload) {
       return new Promise((resolve, reject) => {
         const params = location.href.match(/[?|&]code=([^&]*)[&]?/)
@@ -44,6 +31,68 @@ export default {
         }).catch(e => {
           reject(e)
         })
+        // const res = {
+        //   "ErrorCode": 0,
+        //   "ErrorMessage": "invalid code, hint: [1607354958_54_c77b1acc1e7366d1429dc411a0741205], from ip: 180.167.11.228, more info at https://open.work.weixin.qq.com/devtool/query?e=40029",
+        //   "SessionKey": '17797',
+        //   "EmployeeInfo": {
+        //     "Title": "43906018",
+        //     "Positioin": null,
+        //     "NameForGlobal": "Lifan Shi",
+        //     "NameForLocal": "史 李凡",
+        //     "LastNameForGlobal": "Shi",
+        //     "FirstNameForGlobal": "Lifan",
+        //     "LastnameForLocal": "史",
+        //     "FirstNameForLocal": "李凡",
+        //     "MiddleName": null,
+        //     "PreferredName": null,
+        //     "PersonnelAreaForEmployedBy": "6900",
+        //     "PersonnelAreaTextForEmployedBy": "YCN",
+        //     "OfficialNameForEmployeeBy": "Yokogawa China Co., Ltd.",
+        //     "OfficialNameForEmployeeByNL": "横河電機（中国）有限公司",
+        //     "PersonnelSubareaForEmployedBy": "1000",
+        //     "PersonnelSubareaGlobaltextForEM": "Corporate Office",
+        //     "PersonnelSubareaTextForEM": "上海事务所",
+        //     "PersonnelAreaForWorkfor": "6900",
+        //     "PersonnelAreaTextForWorkfor": "YCN",
+        //     "OfficialNameForWorkFor": "Yokogawa China Co., Ltd.",
+        //     "OfficialNameForWorkForNL": "横河電機（中国）有限公司",
+        //     "PersonnelSubareaForWorkFor": "1000",
+        //     "PersonnelSubareaGlobalTextWork": "Corporate Office",
+        //     "PersonnelSubareaTextForWorkFor": "上海事务所",
+        //     "ControllingAreaForEmployedBy": null,
+        //     "CostCenterForEmployedBy": null,
+        //     "ControllingAreaForWorkFor": "6900",
+        //     "CostCenterForWorkFor": "0000000307",
+        //     "MainOrSub": "1",
+        //     "OrganizationalUnit": "10018203",
+        //     "OrgShortName": "YCN Transformation Promotion Div.IT Management Dept",
+        //     "OrgShortNameForNativeLanguage": "YCN 改革推进企画本部 IT管理部",
+        //     "lineManagerFlag": null,
+        //     "NonManagerFlag": null,
+        //     "DirectOrIndirect": "2",
+        //     "ExtensionNumber": "3006",
+        //     "Email": "lifan.shi@cn.yokogawa.com",
+        //     "ExternalNumber": "21-6239-6262",
+        //     "LocationCode": null,
+        //     "FaxNo": null,
+        //     "CellularPhone": null,
+        //     "CountryKey": "CN",
+        //     "CreationDate": "20201126020005",
+        //     "UpperOrganizationRank": "12",
+        //     "IsUpperOrgManager": false,
+        //     "Role": "员工"
+        //   }
+        // }
+        // const { SessionKey, EmployeeInfo, ErrorCode } = res
+        // if (ErrorCode != 0) {
+        //   dispatch('jumpToAuthority')
+        //   reject()
+        // } else {
+        //   localStorage.setItem('userInfo', JSON.stringify({SessionKey, EmployeeInfo}))
+        //   commit('updateUserInfo', {SessionKey, EmployeeInfo})
+        //   resolve(res)
+        // }
       })
     },
     jumpToAuthority () {
@@ -59,6 +108,19 @@ export default {
         axios.get(apis.GET_USER_LIST, payload).then(res => {
           const { data } = res
           resolve(data)
+        }).catch(e => {
+          reject(e)
+        })
+      })
+    },
+    getUserInfo ({commit}, payload) {
+      return new Promise((resolve, reject) => {
+        axios.post(apis.GET_USER_INFO, payload).then(res => {
+          if (!res) {
+            window.$_toast({ props: { message: '用户不存在', duation: 3000 } })
+            return reject()
+          }
+          resolve(res)
         }).catch(e => {
           reject(e)
         })

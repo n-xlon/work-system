@@ -3,12 +3,12 @@
     <div class="list">
       <div class="item">
         <span>所属部门预算编号</span>
-        <el-input class="input-layout input-rlt disabled-text" size="mini" :disabled="true" :value="currentUser.CostCenterForWorkFor.slice(currentUser.CostCenterForWorkFor.length - 4)"></el-input>
+        <el-input class="input-layout input-rlt disabled-text" size="mini" type="number" v-model="communicationData.department"></el-input>
 <!--        <i class="arrow el-icon-arrow-right"></i>-->
       </div>
       <div class="item">
         <span>YCN招待人员</span>
-        <el-input class="input-layout input-rlt disabled-text" size="mini" :disabled="true" v-model="currentUser.Title"></el-input>
+        <el-input class="input-layout input-rlt disabled-text" size="mini" type="number" @input="changeUserTitle" v-model="currentUserTitle"></el-input>
         <span>{{communicationData.YCNPersonName}}</span>
       </div>
       <div class="item">
@@ -127,7 +127,9 @@ export default {
         { label: '事前批准', value: '事前批准' },
         { label: '事后批准', value: '事后批准' }
       ],
-      loadingSubmit: false
+      loadingSubmit: false,
+      currentUserTitle: null,
+      timer: null
     }
   },
   watch: {
@@ -147,16 +149,32 @@ export default {
     ...mapActions('Communication', [
       'submitCommunicationData'
     ]),
+    ...mapActions('User', [
+      'getUserInfo'
+    ]),
     next (name) {
       this.$router.push({ name })
+    },
+    changeUserTitle () {
+      clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        this.getUserInfo({loginName: this.currentUserTitle}).then(res => {
+          this.updateCommunicationData({ YCNPersonName: res.NameForLocal || '' })
+        }).catch(() => {
+          this.updateCommunicationData({ YCNPersonName: '' })
+        })
+      }, 300)
     },
     submit () {
       let { startTime, endTime, bussiness, num, person, correntArea, requestType, OverseasPlace } = this.communicationData.participantsInfo
       let { totalNum, average, totalMoney, details } = this.communicationData.budgetAmount
       let money = details.length ? details.map(item => +item.amount).reduce((prev, mey) => (prev + mey)) : ''
       let message = ''
-      console.log(this.communicationData.content)
-      if (!this.communicationData.content || !this.communicationData.content.length) {
+      if (!this.communicationData.department) {
+        message = '所属部门预算编号不能为空'
+      } else if (!this.communicationData.YCNPersonName) {
+        message = 'YCN招待人员不能为空'
+      } else if (!this.communicationData.content || !this.communicationData.content.length) {
         message = '交际费内容不能为空'
       } else if (this.communicationData.content.includes('其他') && !this.communicationData.otherText) {
         message = '交际费内容为其他时，说明不能为空'
@@ -239,7 +257,8 @@ export default {
   mounted () {
   },
   created () {
-    this.updateCommunicationData({ YCNPersonName: this.currentUser ? this.currentUser['NameForLocal'] : ''})
+    this.currentUserTitle = this.currentUser.Title
+    this.updateCommunicationData({ department: this.currentUser.CostCenterForWorkFor.slice(this.currentUser.CostCenterForWorkFor.length - 4), YCNPersonName: this.currentUser ? this.currentUser['NameForLocal'] : ''})
   }
 }
 </script>
