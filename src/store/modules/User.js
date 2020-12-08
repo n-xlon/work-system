@@ -24,8 +24,8 @@ export default {
             dispatch('jumpToAuthority')
             reject(res)
           } else {
-            localStorage.setItem('userInfo', JSON.stringify({SessionKey, EmployeeInfo}))
-            commit('updateUserInfo', {SessionKey, EmployeeInfo})
+            localStorage.setItem('userInfo', JSON.stringify({ SessionKey, EmployeeInfo }))
+            commit('updateUserInfo', { SessionKey, EmployeeInfo })
             resolve(res)
           }
         }).catch(e => {

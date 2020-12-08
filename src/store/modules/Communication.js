@@ -47,7 +47,7 @@ export default {
       return new Promise((resolve, reject) => {
         const { YCNPersonName, OtherUsher, GroupAttendant, content, otherText, participantsInfo, budgetAmount } = state.communicationData
         const { currentUser } = rootState.User
-        let data = {
+        const data = {
           ApplicantName: currentUser.NameForLocal,
           PersonnelNumberOfApplicant: currentUser.Title,
           Department: payload.department,
