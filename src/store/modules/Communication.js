@@ -45,12 +45,12 @@ export default {
   actions: {
     submitCommunicationData ({ state, rootState }, payload) {
       return new Promise((resolve, reject) => {
-        const { department, YCNPersonName, OtherUsher, GroupAttendant, content, otherText, participantsInfo, budgetAmount } = state.communicationData
+        const { YCNPersonName, OtherUsher, GroupAttendant, content, otherText, participantsInfo, budgetAmount } = state.communicationData
         const { currentUser } = rootState.User
         let data = {
           ApplicantName: currentUser.NameForLocal,
           PersonnelNumberOfApplicant: currentUser.Title,
-          Department: currentUser.CostCenterForWorkFor ? currentUser.CostCenterForWorkFor.slice(currentUser.CostCenterForWorkFor.length - 4) : '',
+          Department: payload.department,
           PersonnelNumberOfUsher: currentUser.Title,
           UsherName: YCNPersonName,
           Role: currentUser.Role || '',
