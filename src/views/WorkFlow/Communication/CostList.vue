@@ -8,7 +8,7 @@
           <el-input v-else :type="it.label === 'category' ? 'text' : 'number'" class="input-layout input-rlt" size="mini" v-model="item[it.label]"></el-input>
         </li>
       </ul>
-      <p class="cost_list-add"><i class="el-icon-circle-plus-outline" @click="addCostList"></i></p>
+      <p class="cost_list-add"><i :class="['el-icon-remove-outline', 'remove', {'is-disabled': costList.length === 1}]" @click="removeCostList"></i><i class="el-icon-circle-plus-outline" @click="addCostList"></i></p>
       <el-button class="submit-btn" type="primary" @click="submitCost">提交</el-button>
     </template>
   </div>
@@ -43,6 +43,9 @@ export default {
     ]),
     addCostList () {
       this.costList.push({ category: '', amount: '', peopleNumber: '', perCapitalAmount: '' })
+    },
+    removeCostList () {
+      this.costList.length > 1 && this.costList.pop()
     },
     submitCost () {
       this.updateCommunicationData({ budgetAmount: { ...this.communicationData.budgetAmount, details: this.costList } })
@@ -82,6 +85,13 @@ export default {
       margin: 0;
       margin-bottom: 1rem;
       box-sizing: border-box;
+      .remove {
+        margin-right: 10px;
+        &.is-disabled {
+          pointer-events: none;
+          color: #CCCCCC;
+        }
+      }
     }
     .submit-btn {
       width: 100%;

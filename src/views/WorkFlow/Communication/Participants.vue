@@ -6,7 +6,7 @@
         <el-input class="input-layout input-rlt" size="mini" v-model="item[it.label]"></el-input>
       </li>
     </ul>
-    <p class="add_participants"><i class="el-icon-circle-plus-outline" @click="addParticipants"></i></p>
+    <p class="participants"><i :class="['el-icon-remove-outline', 'remove', {'is-disabled': personInfos.length === 1}]" @click="removeParticipants"></i><i class="el-icon-circle-plus-outline" @click="addParticipants"></i></p>
     <el-button class="submit-btn" type="primary" @click="submit">提交</el-button>
   </div>
 </template>
@@ -43,6 +43,9 @@ export default {
     addParticipants () {
       this.personInfos.push({ name: '', company: '', position: '' })
     },
+    removeParticipants () {
+      this.personInfos.length > 1 && this.personInfos.pop()
+    },
     submit () {
       this.updateCommunicationData({ participantsInfo: { ...this.communicationData.participantsInfo, person: this.personInfos } })
       this.$router.back()
@@ -70,7 +73,7 @@ export default {
         width: 4.5rem;
       }
     }
-    .add_participants {
+    .participants {
       color: #43BB5D;
       padding: .2rem .3rem;
       text-align: right;
@@ -78,6 +81,13 @@ export default {
       margin: 0;
       margin-bottom: 1rem;
       box-sizing: border-box;
+      .remove {
+        margin-right: 10px;
+        &.is-disabled {
+          pointer-events: none;
+          color: #CCCCCC;
+        }
+      }
     }
     .submit-btn {
       width: 100%;
